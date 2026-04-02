@@ -1,0 +1,89 @@
+---
+interface Props {
+  title: string;
+  description: string;
+  image?: string;
+  imageAlt?: string;
+  reverse?: boolean;
+}
+
+const { title, description, image, imageAlt, reverse = false } = Astro.props;
+---
+
+<div class={`program-section ${reverse ? 'program-section--reverse' : ''}`}>
+  {image && (
+    <div class="program-image-wrap">
+      <img
+        src={image}
+        alt={imageAlt ?? title}
+        class="program-image"
+        loading="lazy"
+        decoding="async"
+      />
+    </div>
+  )}
+  <div class="program-content">
+    <h3>{title}</h3>
+    <p>{description}</p>
+    <slot />
+  </div>
+</div>
+
+<style>
+  .program-section {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+    margin-bottom: 5rem;
+  }
+
+  .program-section:last-child {
+    margin-bottom: 0;
+  }
+
+  .program-section--reverse {
+    direction: rtl;
+  }
+
+  .program-section--reverse > * {
+    direction: ltr;
+  }
+
+  .program-image-wrap {
+    border-radius: var(--radius-card);
+    overflow: hidden;
+    aspect-ratio: 4 / 3;
+  }
+
+  .program-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+  }
+
+  .program-section:hover .program-image {
+    transform: scale(1.02);
+  }
+
+  .program-content h3 {
+    font-size: clamp(1.25rem, 2.5vw, 1.625rem);
+    margin-bottom: 1rem;
+  }
+
+  .program-content p {
+    color: var(--color-text-secondary);
+    font-size: 1rem;
+    line-height: 1.7;
+  }
+
+  @media (max-width: 768px) {
+    .program-section,
+    .program-section--reverse {
+      grid-template-columns: 1fr;
+      direction: ltr;
+      gap: 2rem;
+    }
+  }
+</style>

@@ -1,0 +1,112 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SectionHeader from '../components/SectionHeader.astro';
+import PressCard from '../components/PressCard.astro';
+import CTAButton from '../components/CTAButton.astro';
+
+// Press coverage — add new items at the top (reverse chronological)
+// Replace href values with real article URLs
+const pressItems = [
+  {
+    publication: 'Texas Monthly',
+    logo: '/images/press/texas-monthly-black-logo.png',
+    headline: 'placeholder — add headline when URL is confirmed',
+    date: '2025-01-01',
+    excerpt: '',
+    url: '#',
+  },
+  {
+    publication: 'CBS News',
+    logo: '/images/press/CBS_News.svg',
+    headline: 'placeholder — add headline when URL is confirmed',
+    date: '2024-01-01',
+    excerpt: '',
+    url: '#',
+  },
+  {
+    publication: 'Houston Chronicle',
+    logo: '/images/press/Houston_Chronicle_Logo_2016.svg',
+    headline: 'placeholder — add headline when URL is confirmed',
+    date: '2024-01-01',
+    excerpt: '',
+    url: '#',
+  },
+  {
+    publication: 'KHOU',
+    logo: '/images/press/khou.png',
+    headline: 'placeholder — add headline when URL is confirmed',
+    date: '2024-01-01',
+    excerpt: '',
+    url: '#',
+  },
+  {
+    publication: 'The Athletic',
+    logo: '/images/press/the-athletic.png',
+    headline: 'placeholder — add headline when URL is confirmed',
+    date: '2024-01-01',
+    excerpt: '',
+    url: '#',
+  },
+];
+---
+
+<BaseLayout
+  title="News & Press"
+  description="Media coverage and team updates from Houston Shine FC — as seen in Texas Monthly, CBS News, Houston Chronicle, and KHOU."
+>
+  <!-- ============ PAGE HERO ============ -->
+  <section style="background-color: var(--color-warm-white); padding: 5rem 0 4rem;">
+    <div class="container" style="max-width: 820px;">
+      <p style="font-size: 0.75rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-gold); margin-bottom: 1rem;">
+        News & Press
+      </p>
+      <h1 style="font-size: clamp(2.25rem, 6vw, 3.5rem); letter-spacing: -0.03em; margin-bottom: 1.5rem;">
+        The Shine in the news.
+      </h1>
+      <p style="font-size: 1.125rem; line-height: 1.7; color: var(--color-text-secondary); max-width: 640px;">
+        Coverage from Texas Monthly, CBS News, Houston Chronicle, KHOU, and more.
+      </p>
+    </div>
+  </section>
+
+  <!-- ============ PRESS GRID ============ -->
+  <section class="section">
+    <div class="container">
+      <div class="press-grid">
+        {pressItems.map(item => (
+          <PressCard
+            publication={item.publication}
+            headline={item.headline}
+            date={item.date}
+            excerpt={item.excerpt}
+            url={item.url}
+          />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ MEDIA CONTACT ============ -->
+  <section class="section section--alt">
+    <div class="container" style="max-width: 680px;">
+      <SectionHeader
+        label="Media"
+        heading="Press inquiries."
+        subheading="Journalists and media professionals — we're happy to arrange interviews, provide background, or connect you with players and staff."
+      />
+      <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+        <CTAButton href="/contact?type=media" variant="outline">Media Inquiry</CTAButton>
+        <!-- TODO: Add press kit download link when available -->
+        <!-- <CTAButton href="/press-kit.zip" variant="outline" external={true}>Download Press Kit</CTAButton> -->
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .press-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.5rem;
+  }
+</style>

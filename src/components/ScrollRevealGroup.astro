@@ -1,0 +1,71 @@
+---
+/**
+ * ScrollRevealGroup
+ *
+ * Wraps a group of elements (typically StickerCutout components) and triggers
+ * scroll-based reveal animation using Intersection Observer. Children must
+ * have the class "scroll-reveal-item" — the observer adds "is-visible" to each
+ * as the group enters the viewport, with staggered delays defined in global.css.
+ *
+ * The observer is initialized globally in BaseLayout via the inline script,
+ * so this component only needs to provide the correct wrapper markup.
+ */
+
+interface Props {
+  class?: string;
+  layout?: 'spread' | 'cluster' | 'grid';
+}
+
+const {
+  class: className = '',
+  layout = 'spread',
+} = Astro.props;
+---
+
+<div class={`scroll-reveal-group scroll-reveal-group--${layout} ${className}`}>
+  <slot />
+</div>
+
+<style>
+  .scroll-reveal-group {
+    position: relative;
+  }
+
+  /* Spread: items in a flex row, evenly spaced */
+  .scroll-reveal-group--spread {
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+  }
+
+  /* Cluster: items overlap slightly for a stacked "pile" starting state */
+  .scroll-reveal-group--cluster {
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+  }
+
+  .scroll-reveal-group--cluster .scroll-reveal-item {
+    margin-left: -2rem;
+  }
+
+  .scroll-reveal-group--cluster .scroll-reveal-item:first-child {
+    margin-left: 0;
+  }
+
+  /* Grid: standard grid layout */
+  .scroll-reveal-group--grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 2rem;
+  }
+
+  @media (max-width: 640px) {
+    .scroll-reveal-group--spread,
+    .scroll-reveal-group--cluster {
+      gap: 1rem;
+    }
+  }
+</style>

@@ -1,0 +1,94 @@
+---
+interface Props {
+  name: string;
+  position?: string;
+  bio?: string;
+  photo?: string;
+  class?: string;
+}
+
+const {
+  name,
+  position,
+  bio,
+  photo,
+  class: className = '',
+} = Astro.props;
+---
+
+<article class={`card player-card ${className}`}>
+  {photo ? (
+    <div class="player-photo-wrap">
+      <img
+        src={photo}
+        alt={`${name}, ${position ?? 'Houston Shine FC'}`}
+        class="player-photo"
+        loading="lazy"
+        decoding="async"
+      />
+    </div>
+  ) : (
+    <div class="player-photo-wrap player-photo-placeholder" aria-hidden="true"></div>
+  )}
+  <div class="player-info">
+    <h3 class="player-name">{name}</h3>
+    {position && <p class="player-position">{position}</p>}
+    {bio && <p class="player-bio">{bio}</p>}
+  </div>
+</article>
+
+<style>
+  .player-card {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .player-photo-wrap {
+    aspect-ratio: 4 / 5;
+    overflow: hidden;
+    background-color: var(--color-warm-white);
+  }
+
+  .player-photo-placeholder {
+    background: linear-gradient(135deg, var(--color-warm-white), rgba(11, 37, 69, 0.06));
+  }
+
+  .player-photo {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top center;
+    transition: transform 0.4s ease;
+  }
+
+  .player-card:hover .player-photo {
+    transform: scale(1.03);
+  }
+
+  .player-info {
+    padding: 1.25rem;
+  }
+
+  .player-name {
+    font-size: 1.0625rem;
+    font-weight: 700;
+    margin-bottom: 0.125rem;
+    letter-spacing: -0.01em;
+  }
+
+  .player-position {
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-gold);
+    margin-bottom: 0.75rem;
+  }
+
+  .player-bio {
+    font-size: 0.875rem;
+    color: var(--color-text-secondary);
+    line-height: 1.6;
+    margin: 0;
+  }
+</style>

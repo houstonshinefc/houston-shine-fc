@@ -1,0 +1,36 @@
+---
+interface TimelineEvent {
+  date: string;
+  title: string;
+  description: string;
+  image?: string;
+  imageAlt?: string;
+}
+
+interface Props {
+  events: TimelineEvent[];
+}
+
+const { events } = Astro.props;
+---
+
+<div class="timeline" role="list">
+  {events.map((event) => (
+    <div class="timeline-item scroll-reveal-item" role="listitem">
+      <p class="timeline-date">{event.date}</p>
+      <h3 style="font-size: 1.0625rem; margin-bottom: 0.5rem;">{event.title}</h3>
+      <p style="font-size: 0.9375rem; color: var(--color-text-secondary); line-height: 1.65; margin: 0;">
+        {event.description}
+      </p>
+      {event.image && (
+        <img
+          src={event.image}
+          alt={event.imageAlt ?? event.title}
+          style="margin-top: 1rem; border-radius: 8px; width: 100%; max-width: 480px; object-fit: cover;"
+          loading="lazy"
+          decoding="async"
+        />
+      )}
+    </div>
+  ))}
+</div>

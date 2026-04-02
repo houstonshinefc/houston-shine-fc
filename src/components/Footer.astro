@@ -1,0 +1,100 @@
+---
+const year = new Date().getFullYear();
+---
+
+<footer style="background-color: var(--color-navy); color: var(--color-white); padding: 3rem 0 2rem;">
+  <div class="container">
+    <div class="footer-grid">
+      <!-- Brand -->
+      <div class="footer-brand">
+        <img
+          src="/footer-logo.png"
+          alt="Houston Shine FC"
+          height="44"
+          style="height: 44px; width: auto; filter: brightness(0) invert(1); margin-bottom: 1rem;"
+        />
+        <p style="font-size: 0.875rem; color: rgba(255,255,255,0.65); max-width: 280px; line-height: 1.6;">
+          An Afghan women's soccer team proudly based in Houston, Texas.
+        </p>
+        <a
+          href="https://www.instagram.com/houstonshinefc"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Houston Shine FC on Instagram"
+          style="display: inline-block; margin-top: 1rem; opacity: 0.7; transition: opacity 0.2s;"
+          onmouseenter="this.style.opacity='1'"
+          onmouseleave="this.style.opacity='0.7'"
+        >
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+          </svg>
+        </a>
+      </div>
+
+      <!-- Navigation -->
+      <div>
+        <p style="font-size: 0.75rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-gold); margin-bottom: 1rem;">
+          Navigate
+        </p>
+        <ul style="list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 0.5rem;">
+          {[
+            { label: 'Home', href: '/' },
+            { label: 'Our Story', href: '/story' },
+            { label: 'Programs', href: '/programs' },
+            { label: 'Partners', href: '/partners' },
+            { label: 'News & Press', href: '/news' },
+            { label: 'Contact', href: '/contact' },
+          ].map(link => (
+            <li>
+              <a
+                href={link.href}
+                style="color: rgba(255,255,255,0.7); text-decoration: none; font-size: 0.9rem; transition: color 0.2s;"
+                onmouseenter="this.style.color='#D4A03C'"
+                onmouseleave="this.style.color='rgba(255,255,255,0.7)'"
+              >
+                {link.label}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <!-- Support CTA -->
+      <div>
+        <p style="font-size: 0.75rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-gold); margin-bottom: 1rem;">
+          Get Involved
+        </p>
+        <p style="font-size: 0.875rem; color: rgba(255,255,255,0.65); margin-bottom: 1.5rem; line-height: 1.6;">
+          Your support keeps the Shine on the pitch and in the community.
+        </p>
+        <a href="/support" class="btn btn-primary" style="font-size: 0.8125rem;">
+          Support the Shine
+        </a>
+      </div>
+    </div>
+
+    <div style="border-top: 1px solid rgba(255,255,255,0.1); margin-top: 3rem; padding-top: 1.5rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
+      <p style="font-size: 0.8125rem; color: rgba(255,255,255,0.4); margin: 0;">
+        &copy; {year} Houston Shine FC. All rights reserved.
+      </p>
+      <p style="font-size: 0.8125rem; color: rgba(255,255,255,0.4); margin: 0;">
+        Houston, Texas
+      </p>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .footer-grid {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr 1fr;
+    gap: 3rem;
+  }
+
+  @media (max-width: 768px) {
+    .footer-grid {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+  }
+</style>

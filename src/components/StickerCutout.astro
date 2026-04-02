@@ -1,0 +1,97 @@
+---
+interface Props {
+  src: string;
+  alt: string;
+  href?: string;
+  label?: string;
+  width?: number;
+  height?: number;
+  rotate?: number;       // Initial rotation offset in degrees
+  hoverShift?: string;   // CSS translate on hover e.g. '-6px, -8px'
+  class?: string;
+}
+
+const {
+  src,
+  alt,
+  href,
+  label,
+  width = 320,
+  height,
+  rotate = 0,
+  hoverShift = '0px, -10px',
+  class: className = '',
+} = Astro.props;
+
+const Tag = href ? 'a' : 'div';
+const tagProps = href ? { href } : {};
+const baseTransform = rotate !== 0 ? `rotate(${rotate}deg)` : '';
+---
+
+<Tag
+  {...tagProps}
+  class={`sticker ${className}`}
+  style={baseTransform ? `transform: ${baseTransform};` : ''}
+  aria-label={href && label ? label : undefined}
+  data-hover-shift={hoverShift}
+  data-rotate={rotate}
+>
+  <img
+    src={src}
+    alt={alt}
+    width={width}
+    height={height}
+    loading="lazy"
+    decoding="async"
+  />
+  {label && (
+    <div class="sticker-label" aria-hidden={href ? 'true' : undefined}>
+      {label}
+    </div>
+  )}
+</Tag>
+
+<style>
+  .sticker-label {
+    position: absolute;
+    bottom: -2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    white-space: nowrap;
+    font-size: 0.8125rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--color-navy);
+    text-decoration: none;
+    transition: color 220ms ease-out;
+  }
+
+  a.sticker {
+    text-decoration: none;
+  }
+
+  a.sticker:hover .sticker-label {
+    color: var(--color-gold);
+  }
+</style>
+
+<script>
+  document.querySelectorAll<HTMLElement>('.sticker').forEach((el) => {
+    const shift = el.dataset.hoverShift ?? '0px, -10px';
+    const rotate = parseFloat(el.dataset.rotate ?? '0');
+    const [tx, ty] = shift.split(',').map(s => s.trim());
+
+    el.style.transition = 'transform 220ms ease-out, filter 220ms ease-out';
+
+    el.addEventListener('mouseenter', () => {
+      el.style.transform = `translate(${tx}, ${ty}) scale(1.1) rotate(${-rotate + (rotate === 0 ? 5 : 2)}deg)`;
+      el.style.filter = 'drop-shadow(0 16px 32px rgba(11, 37, 69, 0.24))';
+    });
+
+    el.addEventListener('mouseleave', () => {
+      el.style.transform = rotate !== 0 ? `rotate(${rotate}deg)` : '';
+      el.style.filter = 'drop-shadow(0 8px 24px rgba(11, 37, 69, 0.18))';
+    });
+  });
+</script>

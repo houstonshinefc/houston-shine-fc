@@ -1,0 +1,66 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SectionHeader from '../components/SectionHeader.astro';
+import ProgramSection from '../components/ProgramSection.astro';
+import CTAButton from '../components/CTAButton.astro';
+---
+
+<BaseLayout
+  title="Programs"
+  description="Houston Shine FC builds pathways beyond the pitch — competitive play, coaching pipelines, leadership development, and community engagement programs in Houston, Texas."
+>
+  <!-- ============ PAGE HERO ============ -->
+  <section style="background-color: var(--color-warm-white); padding: 5rem 0 4rem;">
+    <div class="container" style="max-width: 820px;">
+      <p style="font-size: 0.75rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-gold); margin-bottom: 1rem;">
+        Programs
+      </p>
+      <h1 style="font-size: clamp(2.25rem, 6vw, 3.5rem); letter-spacing: -0.03em; margin-bottom: 1.5rem;">
+        Beyond the pitch.
+      </h1>
+      <p style="font-size: 1.125rem; line-height: 1.7; color: var(--color-text-secondary); max-width: 640px;">
+        The Shine is building an ecosystem — not just a soccer team. These are the programs actively in development.
+      </p>
+    </div>
+  </section>
+
+  <!-- ============ PROGRAMS ============ -->
+  <section class="section">
+    <div class="container">
+
+      <ProgramSection
+        title="Competitive Play"
+        description="The Shine competes in the Houston Women's Soccer Association (HWSA), giving players a real competitive outlet — meaningful matches against other Houston clubs. For athletes who played at the national level, this isn't recreational. It's where the competitive drive lives."
+      />
+
+      <ProgramSection
+        title="Coaching Pipeline"
+        description="Led by Coach Rachel Fabre, the Shine's training program is built on real methodology — skills development, tactical preparation, and fitness. We're actively developing coaching certification pathways for players who want to transition from competing to coaching."
+        reverse={true}
+      />
+
+      <ProgramSection
+        title="Leadership & Professional Development"
+        description="Soccer is the entry point. The broader goal is equipping players to lead — in their careers, their communities, and beyond. This includes English language classes, continued education support, workforce readiness programming, and mentorship development."
+      />
+
+      <ProgramSection
+        title="Community Engagement"
+        description="The Shine runs youth coaching programming for girls ages 12–14 at the YMCA, and participates in community events and cultural programming throughout Houston. The players aren't just recipients of community support — they're becoming community builders."
+        reverse={true}
+      />
+
+    </div>
+  </section>
+
+  <!-- ============ CTA ============ -->
+  <section style="background-color: var(--color-navy); padding: 4rem 0;">
+    <div class="container" style="text-align: center;">
+      <h2 style="color: var(--color-white); margin-bottom: 1rem;">Want to get involved?</h2>
+      <p style="color: rgba(255,255,255,0.7); max-width: 480px; margin: 0 auto 2rem;">
+        Volunteer coaching, translation, transportation, event support — there are real ways to contribute.
+      </p>
+      <CTAButton href="/support" variant="primary">See How to Help</CTAButton>
+    </div>
+  </section>
+</BaseLayout>

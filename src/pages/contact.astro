@@ -1,0 +1,219 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import CTAButton from '../components/CTAButton.astro';
+
+// Read ?type= param to pre-select inquiry type in the form
+const inquiryType = Astro.url.searchParams.get('type') ?? 'general';
+---
+
+<BaseLayout
+  title="Contact"
+  description="Get in touch with Houston Shine FC — general inquiries, media, partnerships, volunteering, and sponsorship."
+>
+  <!-- ============ PAGE HERO ============ -->
+  <section style="background-color: var(--color-warm-white); padding: 5rem 0 4rem;">
+    <div class="container" style="max-width: 820px;">
+      <p style="font-size: 0.75rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-gold); margin-bottom: 1rem;">
+        Contact
+      </p>
+      <h1 style="font-size: clamp(2.25rem, 6vw, 3.5rem); letter-spacing: -0.03em; margin-bottom: 1.5rem;">
+        Let's talk.
+      </h1>
+      <p style="font-size: 1.125rem; line-height: 1.7; color: var(--color-text-secondary); max-width: 580px;">
+        Whether you're a journalist, a potential partner, a volunteer, or just someone who wants to know more — we'd love to hear from you.
+      </p>
+    </div>
+  </section>
+
+  <!-- ============ CONTACT FORM ============ -->
+  <section class="section">
+    <div class="container contact-layout">
+
+      <!-- Form -->
+      <div>
+        <!-- Netlify Forms -->
+        <form
+          name="contact"
+          method="POST"
+          data-netlify="true"
+          netlify-honeypot="bot-field"
+          class="contact-form"
+        >
+          <!-- Netlify hidden fields -->
+          <input type="hidden" name="form-name" value="contact" />
+          <p style="display: none;">
+            <label>Don't fill this out: <input name="bot-field" /></label>
+          </p>
+
+          <!-- Inquiry type -->
+          <div class="form-group">
+            <label for="inquiry-type" class="form-label">Inquiry type</label>
+            <select id="inquiry-type" name="inquiry-type" class="form-control" required>
+              <option value="general"      selected={inquiryType === 'general'}>General inquiry</option>
+              <option value="media"        selected={inquiryType === 'media'}>Media / press</option>
+              <option value="partnership"  selected={inquiryType === 'partnership'}>Partnership</option>
+              <option value="sponsorship"  selected={inquiryType === 'sponsorship'}>Corporate sponsorship</option>
+              <option value="volunteer"    selected={inquiryType === 'volunteer'}>Volunteer</option>
+              <option value="foundation"   selected={inquiryType === 'foundation'}>Foundation / institutional funder</option>
+            </select>
+          </div>
+
+          <!-- Name -->
+          <div class="form-row">
+            <div class="form-group">
+              <label for="first-name" class="form-label">First name</label>
+              <input type="text" id="first-name" name="first-name" class="form-control" required autocomplete="given-name" />
+            </div>
+            <div class="form-group">
+              <label for="last-name" class="form-label">Last name</label>
+              <input type="text" id="last-name" name="last-name" class="form-control" required autocomplete="family-name" />
+            </div>
+          </div>
+
+          <!-- Email -->
+          <div class="form-group">
+            <label for="email" class="form-label">Email address</label>
+            <input type="email" id="email" name="email" class="form-control" required autocomplete="email" />
+          </div>
+
+          <!-- Organization (optional) -->
+          <div class="form-group">
+            <label for="organization" class="form-label">Organization <span style="color: var(--color-text-secondary); font-weight: 400;">(optional)</span></label>
+            <input type="text" id="organization" name="organization" class="form-control" autocomplete="organization" />
+          </div>
+
+          <!-- Message -->
+          <div class="form-group">
+            <label for="message" class="form-label">Message</label>
+            <textarea id="message" name="message" class="form-control" rows="6" required style="resize: vertical; min-height: 140px;"></textarea>
+          </div>
+
+          <button type="submit" class="btn btn-primary" style="font-size: 0.9375rem; padding: 0.875rem 2rem;">
+            Send Message
+          </button>
+        </form>
+      </div>
+
+      <!-- Sidebar -->
+      <aside class="contact-sidebar">
+        <div class="contact-sidebar-block">
+          <p class="sidebar-label">Follow</p>
+          <a
+            href="https://www.instagram.com/houstonshinefc"
+            target="_blank"
+            rel="noopener noreferrer"
+            style="color: var(--color-navy); text-decoration: none; font-weight: 600; font-size: 0.9375rem;"
+          >
+            @houstonshinefc
+          </a>
+        </div>
+        <div class="contact-sidebar-block">
+          <p class="sidebar-label">Support the team</p>
+          <CTAButton href="/support" variant="outline" size="sm">Support the Shine</CTAButton>
+        </div>
+        <div class="contact-sidebar-block">
+          <p class="sidebar-label">Based in</p>
+          <p style="font-size: 0.9375rem; margin: 0; color: var(--color-text-secondary);">Houston, Texas</p>
+        </div>
+      </aside>
+
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .contact-layout {
+    display: grid;
+    grid-template-columns: 1fr 280px;
+    gap: 5rem;
+    align-items: start;
+  }
+
+  .contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+
+  .form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.375rem;
+  }
+
+  .form-label {
+    font-size: 0.8125rem;
+    font-weight: 700;
+    color: var(--color-navy);
+    letter-spacing: 0.01em;
+  }
+
+  .form-control {
+    font-family: var(--font-sans);
+    font-size: 0.9375rem;
+    padding: 0.625rem 0.875rem;
+    border: 1.5px solid rgba(11, 37, 69, 0.18);
+    border-radius: 6px;
+    color: var(--color-navy);
+    background: var(--color-white);
+    transition: border-color var(--transition-base);
+    width: 100%;
+  }
+
+  .form-control:focus {
+    outline: none;
+    border-color: var(--color-gold);
+  }
+
+  select.form-control {
+    cursor: pointer;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%230B2545' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 0.875rem center;
+    padding-right: 2.5rem;
+  }
+
+  /* Sidebar */
+  .contact-sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    padding: 1.75rem;
+    border-radius: var(--radius-card);
+    border: 1px solid rgba(11, 37, 69, 0.08);
+    background: var(--color-warm-white);
+  }
+
+  .contact-sidebar-block {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .sidebar-label {
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--color-gold);
+    margin: 0;
+  }
+
+  @media (max-width: 768px) {
+    .contact-layout {
+      grid-template-columns: 1fr;
+      gap: 3rem;
+    }
+
+    .form-row {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

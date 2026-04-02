@@ -1,0 +1,63 @@
+---
+interface Props {
+  name: string;
+  logo?: string;
+  href?: string;
+  description?: string;
+}
+
+const { name, logo, href, description } = Astro.props;
+const Tag = href ? 'a' : 'div';
+const tagProps = href ? { href, target: '_blank', rel: 'noopener noreferrer' } : {};
+---
+
+<Tag {...tagProps} class="partner-item" title={description ?? name} aria-label={description ? `${name}: ${description}` : name}>
+  {logo ? (
+    <img src={logo} alt={name} class="partner-logo" loading="lazy" decoding="async" />
+  ) : (
+    <span class="partner-name-text">{name}</span>
+  )}
+</Tag>
+
+<style>
+  .partner-item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1.25rem;
+    border-radius: var(--radius-card);
+    border: 1px solid rgba(11, 37, 69, 0.08);
+    background: var(--color-white);
+    text-decoration: none;
+    transition: border-color var(--transition-base), box-shadow var(--transition-base);
+    min-height: 80px;
+  }
+
+  .partner-item:hover {
+    border-color: var(--color-gold);
+    box-shadow: 0 4px 16px rgba(212, 160, 60, 0.12);
+  }
+
+  .partner-logo {
+    max-height: 48px;
+    width: auto;
+    max-width: 160px;
+    object-fit: contain;
+    filter: grayscale(100%);
+    opacity: 0.65;
+    transition: filter var(--transition-base), opacity var(--transition-base);
+  }
+
+  .partner-item:hover .partner-logo {
+    filter: grayscale(0%);
+    opacity: 1;
+  }
+
+  .partner-name-text {
+    font-size: 0.875rem;
+    font-weight: 700;
+    color: var(--color-text-secondary);
+    letter-spacing: 0.03em;
+    text-align: center;
+  }
+</style>

@@ -1,0 +1,72 @@
+---
+/**
+ * VideoEmbed
+ * Supports Vimeo embeds or self-hosted MP4 files.
+ * No YouTube — avoids recommendation pollution.
+ */
+
+interface Props {
+  type: 'vimeo' | 'self-hosted';
+  src: string;          // Vimeo video ID, or path to MP4 file
+  title: string;        // Accessible title / aria-label
+  aspectRatio?: string; // e.g. '16/9' (default) or '4/3'
+  poster?: string;      // Poster image for self-hosted video
+  autoplay?: boolean;
+  loop?: boolean;
+  muted?: boolean;
+}
+
+const {
+  type,
+  src,
+  title,
+  aspectRatio = '16/9',
+  poster,
+  autoplay = false,
+  loop = false,
+  muted = false,
+} = Astro.props;
+
+const vimeoSrc = type === 'vimeo'
+  ? `https://player.vimeo.com/video/${src}?title=0&byline=0&portrait=0&color=D4A03C${autoplay ? '&autoplay=1' : ''}${loop ? '&loop=1' : ''}`
+  : null;
+---
+
+<div class="video-wrap" style={`aspect-ratio: ${aspectRatio};`}>
+  {type === 'vimeo' && vimeoSrc && (
+    <iframe
+      src={vimeoSrc}
+      title={title}
+      frameborder="0"
+      allow="autoplay; fullscreen; picture-in-picture"
+      allowfullscreen
+      loading="lazy"
+      style="width: 100%; height: 100%; border-radius: 10px;"
+    ></iframe>
+  )}
+
+  {type === 'self-hosted' && (
+    <video
+      src={src}
+      title={title}
+      controls
+      poster={poster}
+      autoplay={autoplay}
+      loop={loop}
+      muted={muted || autoplay}
+      playsinline
+      style="width: 100%; height: 100%; border-radius: 10px; object-fit: cover;"
+    >
+      <p>Your browser doesn't support HTML video. <a href={src}>Download the video</a>.</p>
+    </video>
+  )}
+</div>
+
+<style>
+  .video-wrap {
+    width: 100%;
+    overflow: hidden;
+    border-radius: 10px;
+    background-color: var(--color-navy);
+  }
+</style>
