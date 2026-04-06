@@ -26,6 +26,14 @@ const pressItems = [
     image: '/images/news/houston-chronicle.png',
   },
   {
+    publication: 'The Sports Ambassador',
+    headline: 'Houston Shine FC\'s message to FIFA, \'Don\'t forget about us\'',
+    date: '2025-08-16',
+    excerpt: '',
+    url: 'https://open.spotify.com/episode/04Sn9y5zdKcUqNDR2DqpIX',
+    spotifyEmbedSrc: 'https://open.spotify.com/embed/episode/04Sn9y5zdKcUqNDR2DqpIX?utm_source=generator',
+  },
+  {
     publication: 'The Athletic',
     logo: '/images/press/the-athletic.png',
     headline: 'U.S.-based Afghan refugees denied access to new Afghanistan women\'s soccer team',
@@ -33,6 +41,14 @@ const pressItems = [
     excerpt: 'By Colin Millar.',
     url: 'https://www.nytimes.com/athletic/6640594/2025/09/19/afghanistan-women-us-football-team-fifa/',
     image: '/images/news/the-athletic.png',
+  },
+  {
+    publication: 'Don\'t Know Much About Football',
+    headline: 'Zed — Afghan Women\'s Team in America: Kabul to Houston',
+    date: '2025-09-19',
+    excerpt: '',
+    url: 'https://open.spotify.com/episode/5jqxfBVZOjZXUZ9XHsIuBx',
+    spotifyEmbedSrc: 'https://open.spotify.com/embed/episode/5jqxfBVZOjZXUZ9XHsIuBx?utm_source=generator',
   },
   {
     publication: 'CBS News',
@@ -91,6 +107,7 @@ const pressItems = [
             url={item.url}
             embedId={item.embedId}
             image={item.image}
+            spotifyEmbedSrc={item.spotifyEmbedSrc}
           />
         ))}
       </div>
