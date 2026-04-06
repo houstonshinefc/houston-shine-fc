@@ -53,7 +53,17 @@ const pressLinks = [
   </div>
 
   <!-- ============ STICKER NAVIGATION ============ -->
-  <section class="section" aria-label="Explore the Shine Universe">
+  <section class="section sticker-nav-section" aria-label="Explore the Shine Universe">
+    <svg class="sticker-wave" viewBox="0 0 1440 160" preserveAspectRatio="none" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+      <path
+        d="M -20 90 C 80 30, 180 140, 340 70 C 500 0, 600 130, 760 80 C 920 30, 1020 150, 1180 65 C 1340 -15, 1420 110, 1460 80"
+        stroke="#D4A03C"
+        stroke-width="2"
+        fill="none"
+        stroke-linecap="round"
+        opacity="0.45"
+      />
+    </svg>
     <div class="container">
       <SectionHeader
         label="Shine Universe"
@@ -82,10 +92,31 @@ const pressLinks = [
   <!-- ============ MISSION STATEMENT ============ -->
   <section class="section section--alt">
     <div class="container" style="max-width: 800px;">
-      <blockquote class="pull-quote" style="border-left: 3px solid var(--color-gold); padding-left: 1.5rem; margin: 0 0 2rem;">
-        "The Houston Shine is an Afghan women's soccer team proudly based in Houston, Texas. Through soccer, we are developing pathways into community building and leadership that extend far beyond the pitch."
+      <blockquote class="pull-quote" style="border-left: 3px solid var(--color-gold); padding-left: 1.5rem; margin: 0 0 1.5rem;">
+        "These strong women had to flee Afghanistan so they would not be killed for being girls playing sports. They were here, in our backyard in Harris County. To me, this is more than the game. This is about the promise that we hoped for when we, all of us, came to this country at some point."
       </blockquote>
+      <p style="font-size: 0.875rem; font-weight: 700; color: var(--color-navy); margin: 0 0 2rem; padding-left: 1.5rem;">
+        Leslie Briones, Harris County Precinct 4 Commissioner
+      </p>
       <CTAButton href="/story" variant="outline">Read Our Story</CTAButton>
+    </div>
+  </section>
+
+  <!-- ============ INSTAGRAM FEED ============ -->
+  <section class="section">
+    <div class="container" style="max-width: 1100px;">
+      <SectionHeader
+        label="Instagram"
+        heading="Follow the Shine."
+        align="center"
+      />
+      <behold-widget feed-id="K7ZxyQBj20ESVptOmmqx"></behold-widget>
+      <script>
+        (() => {
+          const d=document,s=d.createElement("script");s.type="module";
+          s.src="https://w.behold.so/widget.js";d.head.append(s);
+        })();
+      </script>
     </div>
   </section>
 
@@ -95,7 +126,7 @@ const pressLinks = [
       <SectionHeader
         label="What We're Building"
         heading="Beyond the pitch."
-        subheading="Competitive soccer. Coaching pipelines. Leadership development. Community engagement. The Shine is more than a team."
+        subheading="Competitive soccer. Education and professional development. Community engagement. We're working together to build a brighter future on and off the field."
       />
       <CTAButton href="/programs" variant="outline">See All Programs</CTAButton>
     </div>
@@ -114,8 +145,25 @@ const pressLinks = [
 </BaseLayout>
 
 <style>
+  .sticker-nav-section {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .sticker-wave {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 100%;
+    transform: translateY(-15%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
   .sticker-nav-group {
     padding: 3rem 0 4rem;
+    position: relative;
+    z-index: 1;
   }
 
   .sticker-nav-item {

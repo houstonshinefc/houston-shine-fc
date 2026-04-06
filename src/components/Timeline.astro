@@ -5,6 +5,8 @@ interface TimelineEvent {
   description: string;
   image?: string;
   imageAlt?: string;
+  media?: string;
+  credit?: string;
 }
 
 interface Props {
@@ -15,8 +17,8 @@ const { events } = Astro.props;
 ---
 
 <div class="timeline" role="list">
-  {events.map((event) => (
-    <div class="timeline-item scroll-reveal-item" role="listitem">
+  {events.map((event, index) => (
+    <div class="timeline-item scroll-reveal-item" role="listitem" data-timeline-index={index}>
       <p class="timeline-date">{event.date}</p>
       <h3 style="font-size: 1.0625rem; margin-bottom: 0.5rem;">{event.title}</h3>
       <p style="font-size: 0.9375rem; color: var(--color-text-secondary); line-height: 1.65; margin: 0;">

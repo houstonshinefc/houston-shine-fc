@@ -12,16 +12,21 @@ const milestones = [
     date: '2007–2021',
     title: 'Establishment of the Afghan Women\'s National Football program',
     description: 'Beginning in 2007, Afghanistan establishes a national football program that provides an avenue into sports for women and girls that was previously nonexistent. In 2010, the team plays its first official FIFA sanctioned match, resulting in the expansion of its program, including youth development. In the years that followed, several of the women now on the Houston Shine begin their journey into the sport.',
+    media: '/images/timeline/01-establishment.png',
   },
   {
     date: 'August 2021',
     title: 'Taliban takeover of Afghanistan',
     description: 'The Taliban seizes control of Afghanistan. Women\'s sports are outlawed and by August, there are reports of women athletes being executed.',
+    media: '/images/timeline/02-takeover.mp4',
+    credit: 'PBS News Hour | The Fall of Afghanistan | August 16, 2021',
   },
   {
     date: 'August–October 2021',
     title: 'Evacuation',
     description: 'Players and their families are evacuated by way of three flights organized by the international human rights community and FIFA. The first two include players and their families who are resettled in Europe and Australia. The third flight, which departs amidst increased chaos, includes players and officials from the national football program. Those players arrive in Albania where the group would be temporarily housed for 18 months while seeking more permanent resettlement.',
+    media: '/images/timeline/03-evacuation.mp4',
+    credit: 'Ayenda, directed by Marie Margolius | MSNBC | 2023',
   },
   {
     date: 'June 2023',
@@ -32,6 +37,7 @@ const milestones = [
     date: 'April 2025',
     title: 'Connection',
     description: 'A chance invitation to a Houston Dash game ignites a plan to organize a team for the Houston players.',
+    media: '/images/timeline/05-connection.jpg',
   },
   {
     date: 'May 9, 2025',
@@ -42,11 +48,14 @@ const milestones = [
     date: 'May 18, 2025',
     title: 'Houston Shine FC is founded',
     description: 'After nearly two years of being off the pitch, community volunteers and Harris County Commissioner Leslie Briones organize a first practice. That evening, the group decides to form the Houston Shine FC, representing hope and the promise of a new beginning. The team includes women from the local Afghan community, including teenagers who had never had access to playing sports.',
+    media: '/images/timeline/07-founded.mp4',
+    credit: 'The Second Half, a film in production by UNTOLD | 2025',
   },
   {
     date: 'September 14, 2025',
     title: 'First Match',
     description: 'Houston Shine FC plays its first match in the Houston Women\'s Soccer Association (HWSA) league.',
+    media: '/images/timeline/08-first-match.jpg',
   },
   {
     date: 'October 2025',
@@ -57,21 +66,25 @@ const milestones = [
     date: 'December 2025',
     title: 'Community',
     description: 'After their first successful season with the HWSA, the players and the community that has formed around them come together for a joyful celebration at St. John\'s School, where Coach Rachel has coached women\'s soccer for 20 years.',
+    media: '/images/timeline/10-community.mp4',
   },
   {
     date: 'January 2026',
     title: 'English Classes',
     description: 'The team enrolls six of the players in Houston Community College for English classes.',
+    media: '/images/timeline/11-english-classes.jpeg',
   },
   {
     date: 'February 2026',
     title: 'A second season',
     description: 'Houston Shine FC begins a second season with the Houston Women\'s Soccer Association (HWSA) league!',
+    media: '/images/timeline/12-second-season.jpg',
   },
   {
     date: 'March 31, 2026',
     title: 'Recognition by County Commissioners',
     description: 'The Harris County Commissioners Court honors the Houston Shine FC as part of Women\'s History Month.',
+    media: '/images/timeline/13-commissioners-court.png',
   },
 ];
 
@@ -101,7 +114,7 @@ const players: Array<{ name: string; position?: string; bio?: string; photo?: st
     </video>
     <div class="story-hero-overlay"></div>
     <div class="container story-hero-content" style="max-width: 820px;">
-      <p style="font-size: 0.75rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-gold); margin-bottom: 1rem;">
+      <p style="font-size: 0.75rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-white); margin-bottom: 1rem;">
         Our Story
       </p>
       <h1 style="font-size: clamp(2.25rem, 6vw, 3.5rem); letter-spacing: -0.03em; margin-bottom: 1.5rem;">
@@ -145,8 +158,45 @@ const players: Array<{ name: string; position?: string; bio?: string; photo?: st
         label="Key Milestones"
         heading="How we got here."
       />
-      <div style="max-width: 680px;">
-        <Timeline events={milestones} />
+      <div class="timeline-layout">
+        <div class="timeline-scroll">
+          <Timeline events={milestones} />
+        </div>
+        <div class="timeline-media-panel">
+          <div class="timeline-media-stage">
+            {milestones.map((m, i) => (
+              m.media ? (
+                m.media.endsWith('.mp4') ? (
+                  <video
+                    data-media-index={i}
+                    class="timeline-media-item"
+                    loop
+                    muted
+                    playsinline
+                  >
+                    <source src={m.media} type="video/mp4" />
+                  </video>
+                ) : (
+                  <img
+                    data-media-index={i}
+                    class="timeline-media-item"
+                    src={m.media}
+                    alt={m.title}
+                    loading="lazy"
+                    decoding="async"
+                  />
+                )
+              ) : null
+            ))}
+          </div>
+          <div class="timeline-credits">
+            {milestones.map((m, i) => (
+              m.credit ? (
+                <p data-credit-index={i} class="timeline-credit">{m.credit}</p>
+              ) : null
+            ))}
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -162,7 +212,7 @@ const players: Array<{ name: string; position?: string; bio?: string; photo?: st
         FIFA created an Afghanistan women's refugee team, but excluded the US-based players. The Shine's athletes found themselves locked out of the only international pathway available to refugee footballers, not by lack of skill or commitment, but by geography and bureaucracy.
       </p>
       <p style="font-size: 1.0625rem; line-height: 1.75; color: var(--color-text-secondary);">
-        Where FIFA drew a line, Houston's soccer community drew a different one. The Houston Dash, the Houston Dynamo FC, the HWSA, Commissioner Leslie Briones, and a growing network of civic and community partners have all stepped in to create the infrastructure of support that international bodies failed to provide.
+        Where FIFA drew a line, Houston's soccer community drew a different one. The Houston Dash, the HWSA, Commissioner Leslie Briones, Houston City College and a growing network of civic and community partners have all stepped in to create the infrastructure of support that international bodies failed to provide.
       </p>
     </div>
   </section>
@@ -225,17 +275,80 @@ const players: Array<{ name: string; position?: string; bio?: string; photo?: st
     z-index: 0;
   }
 
-  /* Warm white overlay at 65% opacity — keeps text fully legible */
   .story-hero-overlay {
     position: absolute;
     inset: 0;
-    background-color: rgba(245, 243, 239, 0.65);
+    background-color: rgba(255, 255, 255, 0.70);
     z-index: 1;
   }
 
   .story-hero-content {
     position: relative;
     z-index: 2;
+  }
+
+  /* ── Timeline two-column layout ── */
+  .timeline-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: start;
+  }
+
+  .timeline-media-panel {
+    position: sticky;
+    top: 6rem;
+  }
+
+  .timeline-media-stage {
+    position: relative;
+    aspect-ratio: 16 / 9;
+    border-radius: var(--radius-card);
+    overflow: hidden;
+    background-color: var(--color-navy);
+  }
+
+  .timeline-media-item {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+  }
+
+  .timeline-media-item.active {
+    opacity: 1;
+  }
+
+  .timeline-credits {
+    min-height: 1.5rem;
+    margin-top: 0.5rem;
+    text-align: right;
+  }
+
+  .timeline-credit {
+    display: none;
+    font-size: 0.75rem;
+    color: var(--color-text-secondary);
+    line-height: 1.4;
+    margin: 0;
+  }
+
+  .timeline-credit.active {
+    display: block;
+  }
+
+  @media (max-width: 900px) {
+    .timeline-layout {
+      grid-template-columns: 1fr;
+    }
+    .timeline-media-panel {
+      position: static;
+      order: -1;
+    }
   }
 
   /* ── Players grid ── */
@@ -245,3 +358,53 @@ const players: Array<{ name: string; position?: string; bio?: string; photo?: st
     gap: 1.5rem;
   }
 </style>
+
+<script>
+  const timelineItems = document.querySelectorAll<HTMLElement>('[data-timeline-index]');
+  const mediaItems = document.querySelectorAll<HTMLElement>('[data-media-index]');
+  const creditItems = document.querySelectorAll<HTMLElement>('[data-credit-index]');
+
+  if (timelineItems.length && mediaItems.length) {
+    function setActiveMedia(timelineIndex: number) {
+      let activeEl: HTMLElement | null = null;
+      mediaItems.forEach(el => {
+        if (parseInt(el.dataset.mediaIndex!) <= timelineIndex) activeEl = el;
+      });
+      if (!activeEl) activeEl = mediaItems[0] as HTMLElement;
+
+      mediaItems.forEach(el => {
+        const wasActive = el.classList.contains('active');
+        el.classList.remove('active');
+        if (wasActive && el.tagName === 'VIDEO') (el as HTMLVideoElement).pause();
+      });
+
+      activeEl.classList.add('active');
+      if (activeEl.tagName === 'VIDEO') (activeEl as HTMLVideoElement).play().catch(() => {});
+
+      // Swap credit — show credit whose index matches the active media index
+      const activeMediaIndex = parseInt(activeEl.dataset.mediaIndex!);
+      creditItems.forEach(el => {
+        el.classList.toggle('active', parseInt(el.dataset.creditIndex!) === activeMediaIndex);
+      });
+    }
+
+    // Start with first item
+    setActiveMedia(0);
+
+    // Hover
+    timelineItems.forEach((item, index) => {
+      item.addEventListener('mouseenter', () => setActiveMedia(index));
+    });
+
+    // Scroll — trigger when item enters the upper half of the viewport
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          setActiveMedia(parseInt((entry.target as HTMLElement).dataset.timelineIndex!));
+        }
+      });
+    }, { threshold: 0.5, rootMargin: '-10% 0px -40% 0px' });
+
+    timelineItems.forEach(item => observer.observe(item));
+  }
+</script>

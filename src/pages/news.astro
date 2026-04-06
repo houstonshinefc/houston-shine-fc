@@ -14,6 +14,7 @@ const pressItems = [
     date: '2025-05-18',
     excerpt: '',
     url: 'https://www.youtube.com/watch?v=CHHZydR64kQ',
+    embedId: 'CHHZydR64kQ',
   },
   {
     publication: 'Houston Chronicle',
@@ -22,6 +23,7 @@ const pressItems = [
     date: '2025-05-19',
     excerpt: 'By Danielle Lerner, photography by Elizabeth Conley.',
     url: 'https://www.houstonchronicle.com/sports/dynamo/article/afghan-womens-soccer-refugees-fifa-houston-20331543.php',
+    image: '/images/news/houston-chronicle.png',
   },
   {
     publication: 'The Athletic',
@@ -30,6 +32,7 @@ const pressItems = [
     date: '2025-09-19',
     excerpt: 'By Colin Millar.',
     url: 'https://www.nytimes.com/athletic/6640594/2025/09/19/afghanistan-women-us-football-team-fifa/',
+    image: '/images/news/the-athletic.png',
   },
   {
     publication: 'CBS News',
@@ -38,6 +41,7 @@ const pressItems = [
     date: '2025-12-06',
     excerpt: '',
     url: 'https://www.cbsnews.com/news/afghan-refugees-in-the-u-s-forge-their-own-path-in-womens-soccer/',
+    embedId: 'RPDnmhX5oD4',
   },
   {
     publication: 'Texas Monthly',
@@ -46,6 +50,7 @@ const pressItems = [
     date: '2026-03-01',
     excerpt: 'By Dion Nissenbaum, photography by Christopher Lee.',
     url: 'https://www.texasmonthly.com/arts-entertainment/how-fifa-left-afghan-womens-soccer-players-in-houston/',
+    image: '/images/news/texas-monthly.png',
   },
 ];
 ---
@@ -55,9 +60,13 @@ const pressItems = [
   description="Media coverage and team updates from Houston Shine FC — as seen in Texas Monthly, CBS News, Houston Chronicle, and KHOU."
 >
   <!-- ============ PAGE HERO ============ -->
-  <section style="background-color: var(--color-warm-white); padding: 5rem 0 4rem;">
-    <div class="container" style="max-width: 820px;">
-      <p style="font-size: 0.75rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-gold); margin-bottom: 1rem;">
+  <section class="news-hero">
+    <video class="news-hero-video" autoplay loop muted playsinline aria-hidden="true">
+      <source src="/assets/videos/news-hero.mp4" type="video/mp4" />
+    </video>
+    <div class="news-hero-overlay"></div>
+    <div class="container news-hero-content" style="max-width: 820px;">
+      <p style="font-size: 0.75rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-white); margin-bottom: 1rem;">
         News & Press
       </p>
       <h1 style="font-size: clamp(2.25rem, 6vw, 3.5rem); letter-spacing: -0.03em; margin-bottom: 1.5rem;">
@@ -73,13 +82,15 @@ const pressItems = [
   <section class="section">
     <div class="container">
       <div class="press-grid">
-        {pressItems.map(item => (
+        {[...pressItems].reverse().map(item => (
           <PressCard
             publication={item.publication}
             headline={item.headline}
             date={item.date}
             excerpt={item.excerpt}
             url={item.url}
+            embedId={item.embedId}
+            image={item.image}
           />
         ))}
       </div>
@@ -95,7 +106,7 @@ const pressItems = [
         subheading="Journalists and media professionals, we're happy to arrange interviews, provide background, or connect you with players and staff."
       />
       <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
-        <CTAButton href="/contact?type=media" variant="outline">Media Inquiry</CTAButton>
+        <CTAButton href="mailto:houstonshinefc@pm.me" variant="outline">Media Inquiry</CTAButton>
         <!-- TODO: Add press kit download link when available -->
         <!-- <CTAButton href="/press-kit.zip" variant="outline" external={true}>Download Press Kit</CTAButton> -->
       </div>
@@ -104,9 +115,38 @@ const pressItems = [
 </BaseLayout>
 
 <style>
+  .news-hero {
+    position: relative;
+    background-color: var(--color-warm-white);
+    padding: 5rem 0 4rem;
+    overflow: hidden;
+  }
+
+  .news-hero-video {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    z-index: 0;
+  }
+
+  .news-hero-overlay {
+    position: absolute;
+    inset: 0;
+    background-color: rgba(255, 255, 255, 0.70);
+    z-index: 1;
+  }
+
+  .news-hero-content {
+    position: relative;
+    z-index: 2;
+  }
+
   .press-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(480px, 1fr));
     gap: 1.5rem;
   }
 </style>

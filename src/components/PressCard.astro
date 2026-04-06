@@ -6,12 +6,33 @@ interface Props {
   excerpt?: string;
   url: string;
   logo?: string;
+  embedId?: string;
+  image?: string;
 }
 
-const { publication, headline, date, excerpt, url, logo } = Astro.props;
+const { publication, headline, date, excerpt, url, logo, embedId, image } = Astro.props;
 ---
 
 <article class="card press-card">
+  {embedId && (
+    <div class="press-embed-wrap">
+      <iframe
+        src={`https://www.youtube.com/embed/${embedId}?modestbranding=1&rel=0&showinfo=0`}
+        title={headline}
+        frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        referrerpolicy="strict-origin-when-cross-origin"
+        allowfullscreen
+        loading="lazy"
+        class="press-embed"
+      ></iframe>
+    </div>
+  )}
+  {image && !embedId && (
+    <div class="press-image-wrap">
+      <img src={image} alt={headline} class="press-image" loading="lazy" decoding="async" />
+    </div>
+  )}
   <a href={url} target="_blank" rel="noopener noreferrer" class="press-card-link" aria-label={`${headline} — ${publication}`}>
     <div class="press-card-header">
       {logo ? (
@@ -25,11 +46,43 @@ const { publication, headline, date, excerpt, url, logo } = Astro.props;
     </div>
     <h3 class="press-headline">{headline}</h3>
     {excerpt && <p class="press-excerpt">{excerpt}</p>}
-    <span class="press-read-more" aria-hidden="true">Read story →</span>
+    <span class="press-read-more" aria-hidden="true">{embedId ? 'Watch on YouTube →' : 'Read story →'}</span>
   </a>
 </article>
 
 <style>
+  .press-card {
+    background: var(--color-warm-white);
+  }
+
+  .press-embed-wrap {
+    position: relative;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+    background: #000;
+  }
+
+  .press-embed {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+  }
+
+  .press-image-wrap {
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+  }
+
+  .press-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top;
+    display: block;
+  }
+
   .press-card-link {
     display: block;
     padding: 1.5rem;
