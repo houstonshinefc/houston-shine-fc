@@ -87,8 +87,20 @@ const players: Array<{ name: string; position?: string; bio?: string; photo?: st
   description="From the Afghan women's national team to Houston, Texas — the story of how the Houston Shine FC was born out of evacuation, resettlement, and an unbreakable love of the game."
 >
   <!-- ============ PAGE HERO ============ -->
-  <section style="background-color: var(--color-warm-white); padding: 5rem 0 4rem;">
-    <div class="container" style="max-width: 820px;">
+  <section class="story-hero">
+    {/* Video background — drop story-hero.mp4 into public/assets/videos/ to activate */}
+    <video
+      class="story-hero-video"
+      autoplay
+      loop
+      muted
+      playsinline
+      aria-hidden="true"
+    >
+      <source src="/assets/videos/story-hero.mp4" type="video/mp4" />
+    </video>
+    <div class="story-hero-overlay"></div>
+    <div class="container story-hero-content" style="max-width: 820px;">
       <p style="font-size: 0.75rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-gold); margin-bottom: 1rem;">
         Our Story
       </p>
@@ -195,6 +207,38 @@ const players: Array<{ name: string; position?: string; bio?: string; photo?: st
 </BaseLayout>
 
 <style>
+  /* ── Story Hero ── */
+  .story-hero {
+    position: relative;
+    background-color: var(--color-warm-white);
+    padding: 5rem 0 4rem;
+    overflow: hidden;
+  }
+
+  .story-hero-video {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    z-index: 0;
+  }
+
+  /* Warm white overlay at 65% opacity — keeps text fully legible */
+  .story-hero-overlay {
+    position: absolute;
+    inset: 0;
+    background-color: rgba(245, 243, 239, 0.65);
+    z-index: 1;
+  }
+
+  .story-hero-content {
+    position: relative;
+    z-index: 2;
+  }
+
+  /* ── Players grid ── */
   .players-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
