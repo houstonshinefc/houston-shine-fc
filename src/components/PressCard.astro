@@ -30,16 +30,14 @@ const { publication, headline, date, excerpt, url, logo, embedId, image, spotify
     </div>
   )}
   {spotifyEmbedSrc && (
-    <div class="press-spotify-wrap">
+    <div class="press-embed-wrap">
       <iframe
         src={spotifyEmbedSrc}
-        width="100%"
-        height="352"
         frameborder="0"
         allowfullscreen
         allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
         loading="lazy"
-        style="border-radius: 12px 12px 0 0;"
+        class="press-embed"
       ></iframe>
     </div>
   )}
