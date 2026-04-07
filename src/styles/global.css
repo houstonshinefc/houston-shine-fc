@@ -316,7 +316,7 @@ p { margin-top: 0; }
   position: absolute;
   left: 0;
   top: 0.5rem;
-  bottom: 0.5rem;
+  bottom: 2.125rem;
   width: 2px;
   background: linear-gradient(to bottom, var(--color-navy), var(--color-gold));
 }
@@ -329,7 +329,7 @@ p { margin-top: 0; }
 .timeline-item::before {
   content: '';
   position: absolute;
-  left: -2.375rem;
+  left: calc(-2rem - 4px);
   top: 0.4rem;
   width: 10px;
   height: 10px;
