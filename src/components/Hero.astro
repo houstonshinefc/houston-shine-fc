@@ -3,6 +3,8 @@ interface Props {
   heading: string;
   subheading?: string;
   image?: string;
+  mobileImage?: string;
+  mobileFullHeight?: boolean;
   imageAlt?: string;
   primaryCTA?: { label: string; href: string };
   secondaryCTA?: { label: string; href: string };
@@ -12,22 +14,29 @@ const {
   heading,
   subheading,
   image,
+  mobileImage,
+  mobileFullHeight = false,
   imageAlt = '',
   primaryCTA,
   secondaryCTA,
 } = Astro.props;
 ---
 
-<section class={`hero ${image ? 'hero--fullbleed' : ''}`}>
+<section class={`hero ${image ? 'hero--fullbleed' : ''} ${mobileFullHeight ? 'hero--mobile-full' : ''}`}>
   {image && (
-    <img
-      src={image}
-      alt={imageAlt}
-      class="hero-bg"
-      loading="eager"
-      decoding="async"
-      fetchpriority="high"
-    />
+    <picture>
+      {mobileImage && (
+        <source srcset={mobileImage} media="(max-width: 768px)" />
+      )}
+      <img
+        src={image}
+        alt={imageAlt}
+        class="hero-bg"
+        loading="eager"
+        decoding="async"
+        fetchpriority="high"
+      />
+    </picture>
   )}
   <div class="container hero-inner">
     <div class="hero-content">
@@ -120,7 +129,7 @@ const {
     }
 
     .hero-inner {
-      padding-top: 2.625rem;
+      padding-top: 0.75rem;
     }
 
     .hero-heading {
@@ -130,6 +139,31 @@ const {
 
     .hero-ctas {
       display: none;
+    }
+
+    /* Full-height mobile variant — image sets the section height */
+    .hero--mobile-full {
+      min-height: unset;
+      display: block;
+    }
+
+    .hero--mobile-full picture {
+      display: block;
+    }
+
+    .hero--mobile-full .hero-bg {
+      position: relative;
+      inset: auto;
+      width: 100%;
+      height: auto;
+      object-fit: unset;
+    }
+
+    .hero--mobile-full .hero-inner {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
     }
   }
 </style>
