@@ -13,7 +13,7 @@ const { title, description, image, imageAlt, reverse = false, rotate = 0 } = Ast
 
 <div class={`program-section ${reverse ? 'program-section--reverse' : ''}`}>
   {image && (
-    <div class="program-image-wrap" style={`transform: rotate(${rotate}deg) scale(0.9)`}>
+    <div class="program-image-wrap" style={`--rotate: ${rotate}deg; --hover-deg: ${reverse ? '3deg' : '-4deg'}`}>
       <img
         src={image}
         alt={imageAlt ?? title}
@@ -55,6 +55,13 @@ const { title, description, image, imageAlt, reverse = false, rotate = 0 } = Ast
     border-radius: var(--radius-card);
     overflow: hidden;
     aspect-ratio: 4 / 3;
+    transform: rotate(var(--rotate)) scale(0.9);
+    transition: transform 0.5s ease, box-shadow 0.5s ease;
+  }
+
+  .program-section:hover .program-image-wrap {
+    transform: rotate(calc(var(--rotate) + var(--hover-deg))) scale(1.0);
+    box-shadow: 0 16px 40px rgba(11, 37, 69, 0.15);
   }
 
   .program-image {
@@ -65,7 +72,7 @@ const { title, description, image, imageAlt, reverse = false, rotate = 0 } = Ast
   }
 
   .program-section:hover .program-image {
-    transform: scale(1.02);
+    transform: scale(1.05);
   }
 
   .program-content h3 {
