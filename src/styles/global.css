@@ -155,6 +155,23 @@ p { margin-top: 0; }
 .scroll-reveal-item:nth-child(6) { transition-delay: 400ms; }
 
 /* ============================================================
+   Utility: Page label (eyebrow text above headings)
+   ============================================================ */
+
+.page-label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-white);
+  margin-bottom: 1rem;
+}
+
+.page-label--gold {
+  color: var(--color-gold);
+}
+
+/* ============================================================
    Navigation
    ============================================================ */
 

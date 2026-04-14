@@ -8,6 +8,8 @@ interface Props {
   imageAlt?: string;
   primaryCTA?: { label: string; href: string };
   secondaryCTA?: { label: string; href: string };
+  figures?: string[];
+  figureBackground?: string;
 }
 
 const {
@@ -19,10 +21,15 @@ const {
   imageAlt = '',
   primaryCTA,
   secondaryCTA,
+  figures,
+  figureBackground,
 } = Astro.props;
+
+const hasAnimatedHero = figures && figures.length > 0 && figureBackground;
 ---
 
-<section class={`hero ${image ? 'hero--fullbleed' : ''} ${mobileFullHeight ? 'hero--mobile-full' : ''}`}>
+<section class={`hero ${image || hasAnimatedHero ? 'hero--fullbleed' : ''} ${mobileFullHeight ? 'hero--mobile-full' : ''}`}>
+  {/* Static hero image — always rendered. On mobile shows mobile image. On desktop acts as fallback if figures fail. */}
   {image && (
     <picture>
       {mobileImage && (
@@ -37,6 +44,22 @@ const {
         fetchpriority="high"
       />
     </picture>
+  )}
+  {/* Animated desktop figure layers */}
+  {hasAnimatedHero && (
+    <div class="hero-figures-layer" aria-hidden="true">
+      <img src={figureBackground} class="hero-figure-base" alt="" loading="eager" fetchpriority="high" decoding="async" />
+      {figures.map((fig, i) => (
+        <img
+          src={fig}
+          class="hero-figure"
+          style={`--i: ${i}`}
+          alt=""
+          loading="eager"
+          decoding="async"
+        />
+      ))}
+    </div>
   )}
   <div class="container hero-inner">
     <div class="hero-content">
@@ -82,6 +105,34 @@ const {
     z-index: 0;
   }
 
+  /* ── Animated figure layers (desktop only) ── */
+  .hero-figures-layer {
+    display: none; /* hidden on mobile — static image shows instead */
+    position: absolute;
+    inset: 0;
+    z-index: 1; /* sits above static hero-bg, which acts as fallback */
+  }
+
+  .hero-figure-base,
+  .hero-figure {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center bottom;
+  }
+
+  .hero-figure {
+    will-change: transform;
+  }
+
+  @media (min-width: 769px) {
+    .hero-figures-layer {
+      display: block;
+    }
+  }
+
 
   .hero-inner {
     position: relative;
@@ -103,11 +154,6 @@ const {
     color: var(--color-navy);
   }
 
-  .hero-title {
-    display: block;
-    font-style: italic;
-    letter-spacing: 0.02em;
-  }
 
   .hero-subheading {
     font-size: 1.0625rem;
@@ -121,6 +167,14 @@ const {
     display: flex;
     gap: 1rem;
     flex-wrap: wrap;
+  }
+
+  .hero-ctas .btn {
+    opacity: 0.95;
+  }
+
+  .hero-ctas .btn:hover {
+    opacity: 1;
   }
 
   @media (max-width: 768px) {
@@ -167,3 +221,45 @@ const {
     }
   }
 </style>
+
+{hasAnimatedHero && (
+  <script>
+    (function () {
+      const hero = document.querySelector('.hero');
+      if (!hero) return;
+
+      const figures = Array.from(hero.querySelectorAll('.hero-figure'));
+      if (!figures.length) return;
+
+      if (window.matchMedia('(max-width: 768px)').matches) return;
+
+      let rafPending = false;
+
+      function onScroll() {
+        if (rafPending) return;
+        rafPending = true;
+        requestAnimationFrame(() => {
+          rafPending = false;
+          const scrollY = window.scrollY;
+          const heroHeight = hero.offsetHeight;
+
+          const progress = scrollY / heroHeight; // 0 → 1 as hero scrolls out
+          const threshold = 0.4; // start rising in the last 60% of the hero
+
+          if (progress < threshold) {
+            figures.forEach(fig => fig.style.transform = 'translateY(0px)');
+            return;
+          }
+
+          const relativeProgress = (progress - threshold) / (1 - threshold); // 0 → 1
+          const translateY = -(relativeProgress * 30);
+          figures.forEach(fig => {
+            fig.style.transform = `translateY(${translateY}px)`;
+          });
+        });
+      }
+
+      window.addEventListener('scroll', onScroll, { passive: true });
+    })();
+  </script>
+)}
