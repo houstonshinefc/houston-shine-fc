@@ -102,9 +102,19 @@ import CTAButton from '../components/CTAButton.astro';
 
   <!-- ============ WAVE DIVIDER ============ -->
   <div class="wave-divider" aria-hidden="true">
-    <svg viewBox="0 -80 1440 200" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+    <svg class="wave-desktop" viewBox="0 -80 1440 200" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
       <path
         d="M -20 55 C 50 -20, 150 110, 300 10 C 450 -70, 570 100, 720 25 C 870 -55, 990 110, 1140 5 C 1290 -75, 1400 90, 1460 40"
+        stroke="#D4A03C"
+        stroke-width="2"
+        fill="none"
+        stroke-linecap="round"
+        opacity="0.45"
+      />
+    </svg>
+    <svg class="wave-mobile" viewBox="0 -60 400 140" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <path
+        d="M -10 50 C 40 -30, 120 110, 200 20 C 280 -65, 360 95, 410 40"
         stroke="#D4A03C"
         stroke-width="2"
         fill="none"
@@ -119,7 +129,7 @@ import CTAButton from '../components/CTAButton.astro';
     <div class="container">
 
       <ProgramSection
-        title="Competitive Play"
+        title="Player Development"
         description="The Shine competes in the Houston Women's Soccer Association (HWSA), giving players both new to the game and those more experienced a place to connect with women from across Houston."
         image="/images/programs/competitive-play.jpg"
         reverse={true}
@@ -127,7 +137,7 @@ import CTAButton from '../components/CTAButton.astro';
       />
 
       <ProgramSection
-        title="Leadership & Professional Development"
+        title="Leadership & Professional Growth"
         description="Soccer is the entry point. The broader goal is equipping players to lead in their careers, their communities, and beyond. This includes English language classes, continued education support, workforce readiness programming, and mentorship development."
         image="/images/programs/leadership.jpeg"
         rotate={3}
@@ -195,10 +205,25 @@ import CTAButton from '../components/CTAButton.astro';
     pointer-events: none;
   }
 
-  .wave-divider svg {
+  .wave-desktop {
     width: 100%;
     height: 120px;
     display: block;
+  }
+
+  .wave-mobile {
+    width: 100%;
+    height: 120px;
+    display: none;
+  }
+
+  @media (max-width: 768px) {
+    .wave-desktop {
+      display: none;
+    }
+    .wave-mobile {
+      display: block;
+    }
   }
 
   /* ── Stats Bar ── */
