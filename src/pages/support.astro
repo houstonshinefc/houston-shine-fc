@@ -22,7 +22,7 @@ import CTAButton from '../components/CTAButton.astro';
         Get behind the Shine.
       </h1>
       <p style="font-size: 1.125rem; line-height: 1.7; color: var(--color-text-secondary); max-width: 640px;">
-        The Shine runs on community support. Whether you're an individual, a foundation, or a company, there's a way to be part of this.
+        The Shine is powered by people and organizations in our community. Join us!
       </p>
     </div>
   </section>
@@ -36,9 +36,6 @@ import CTAButton from '../components/CTAButton.astro';
         <div class="support-card">
           <p class="support-label">For Individuals</p>
           <h2 class="support-heading">Make a Donation</h2>
-          <p style="color: var(--color-text-secondary); font-size: 0.9375rem; line-height: 1.65; margin-bottom: 2rem;">
-            Donations go directly to player support, equipment, travel, league fees, and community programming. Every dollar keeps the Shine on the field.
-          </p>
           <script src="https://donorbox.org/widget.js" paypalExpress="false"></script>
           <iframe src="https://donorbox.org/embed/houston-shine-fc?" name="donorbox" allowpaymentrequest="allowpaymentrequest" seamless="seamless" frameborder="0" scrolling="no" height="900px" width="100%" style="max-width: 500px; min-width: 250px; max-height:none!important" allow="payment"></iframe>
         </div>
@@ -49,10 +46,7 @@ import CTAButton from '../components/CTAButton.astro';
           <!-- Corporate -->
           <div class="support-card">
             <p class="support-label">For Corporate Partners</p>
-            <h2 class="support-heading">Explore Sponsorship</h2>
-            <p style="color: var(--color-text-secondary); font-size: 0.9375rem; line-height: 1.65; margin-bottom: 2rem;">
-              Corporate partnerships power the Shine's infrastructure: team kits, field access, community events and more. Let's talk about what a partnership looks like for your organization.
-            </p>
+            <h2 class="support-heading">Sponsor the team</h2>
             <CTAButton href="mailto:houstonshinefc@pm.me" variant="outline">
               Contact Us
             </CTAButton>
@@ -61,33 +55,8 @@ import CTAButton from '../components/CTAButton.astro';
           <!-- Wishlist -->
           <div class="support-card">
             <p class="support-label">Amazon Wishlist</p>
-            <h2 class="support-heading">Send something directly.</h2>
-            <p style="color: var(--color-text-secondary); font-size: 0.9375rem; line-height: 1.65; margin-bottom: 2rem;">
-              Equipment, gear, supplies: browse the Shine's wishlist and send something directly to the team.
-            </p>
+            <h2 class="support-heading">Send something directly</h2>
             <CTAButton href="https://www.amazon.com/registries/gl/guest-view/10ZP8VM9R9DC2?ref_=cm_sw_r_mwn_ggr-subnav-share_VRDS4YB0YZEB2BHDJ35B&language=en-US&utm_source=ig&utm_medium=social&utm_content=link_in_bio&fbclid=PAZXh0bgNhZW0CMTEAc3J0YwZhcHBfaWQMMjU2MjgxMDQwNTU4AAGnf7XwyCxXlKXGFI6jOKuaUuXtUgv72HKFEqFjl-BdvZvskKaL1Scilbcf-Co_aem_8XMPAv229dqMimdpiqRYrA" variant="outline" external={true}>View the Wishlist</CTAButton>
-          </div>
-
-          <!-- Volunteer -->
-          <div class="support-card">
-            <p class="support-label">Volunteer</p>
-            <h2 class="support-heading">Show up. We need people.</h2>
-            <p style="color: var(--color-text-secondary); font-size: 0.9375rem; line-height: 1.65; margin-bottom: 1.25rem;">Volunteer needs shift with the season, but here's what's typically needed:</p>
-            <ul style="list-style: none; padding: 0; margin: 0 0 2rem; display: flex; flex-direction: column; gap: 0.75rem;">
-              {[
-                'Coaching and training support',
-                'Translation and interpretation (Dari/Pashto)',
-                'Transportation to matches and events',
-                'Event coordination and logistics',
-                'Photography and media support',
-              ].map(item => (
-                <li style="display: flex; align-items: flex-start; gap: 0.75rem; font-size: 0.9375rem; color: var(--color-text-secondary);">
-                  <span style="color: var(--color-gold); font-size: 1rem; flex-shrink: 0; margin-top: 1px;">→</span>
-                  {item}
-                </li>
-              ))}
-            </ul>
-            <CTAButton href="mailto:houstonshinefc@pm.me" variant="outline">Volunteer Inquiry</CTAButton>
           </div>
 
         </div>
@@ -150,7 +119,7 @@ import CTAButton from '../components/CTAButton.astro';
     padding: 2rem;
     border-radius: var(--radius-card);
     border: 1px solid rgba(11, 37, 69, 0.08);
-    background: var(--color-white);
+    background: var(--color-warm-white);
   }
 
   .support-label {
