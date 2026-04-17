@@ -126,6 +126,49 @@ import CTAButton from '../components/CTAButton.astro';
     </div>
   </section>
 
+<!-- ============ DONOR MODAL ============ -->
+<div id="donor-modal" class="donor-modal" hidden>
+  <div class="donor-modal-backdrop" id="donor-modal-backdrop"></div>
+  <div class="donor-modal-content">
+    <button class="donor-modal-close" id="donor-modal-close" aria-label="Close">&#x2715;</button>
+    <iframe id="donor-modal-iframe" src="" name="donorbox" allowpaymentrequest="allowpaymentrequest" seamless="seamless" scrolling="yes" allow="payment"></iframe>
+  </div>
+</div>
+
+<script>
+  (() => {
+    const modal = document.getElementById('donor-modal');
+    const iframe = document.getElementById('donor-modal-iframe');
+    const closeBtn = document.getElementById('donor-modal-close');
+    const backdrop = document.getElementById('donor-modal-backdrop');
+
+    function openModal(url) {
+      iframe.src = url;
+      modal.removeAttribute('hidden');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal() {
+      modal.setAttribute('hidden', '');
+      iframe.src = '';
+      document.body.style.overflow = '';
+    }
+
+    document.querySelectorAll('.dbox-donation-button').forEach(link => {
+      link.addEventListener('click', e => {
+        e.preventDefault();
+        openModal(link.href);
+      });
+    });
+
+    closeBtn.addEventListener('click', closeModal);
+    backdrop.addEventListener('click', closeModal);
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape') closeModal();
+    });
+  })();
+</script>
+
 <script>
   (() => {
     const DURATION = 1400;
@@ -367,5 +410,65 @@ import CTAButton from '../components/CTAButton.astro';
     font-size: 1.375rem;
     margin-bottom: 1rem;
     letter-spacing: -0.02em;
+  }
+
+  /* ── Donor Modal ── */
+  .donor-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1.5rem;
+  }
+
+  .donor-modal[hidden] {
+    display: none;
+  }
+
+  .donor-modal-backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(11, 37, 69, 0.6);
+    cursor: pointer;
+  }
+
+  .donor-modal-content {
+    position: relative;
+    background: var(--color-white);
+    border-radius: var(--radius-card);
+    width: 100%;
+    max-width: 540px;
+    max-height: 90vh;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .donor-modal-close {
+    position: absolute;
+    top: 0.75rem;
+    right: 0.75rem;
+    z-index: 1;
+    background: var(--color-warm-white);
+    border: none;
+    border-radius: 50%;
+    width: 2rem;
+    height: 2rem;
+    font-size: 1.25rem;
+    line-height: 1;
+    cursor: pointer;
+    color: var(--color-navy);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .donor-modal-content iframe {
+    width: 100%;
+    flex: 1;
+    border: none;
+    min-height: 500px;
   }
 </style>
