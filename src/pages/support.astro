@@ -131,7 +131,9 @@ import CTAButton from '../components/CTAButton.astro';
   <div class="donor-modal-backdrop" id="donor-modal-backdrop"></div>
   <div class="donor-modal-content">
     <button class="donor-modal-close" id="donor-modal-close" aria-label="Close">&#x2715;</button>
-    <iframe id="donor-modal-iframe" src="" name="donorbox" allowpaymentrequest="allowpaymentrequest" seamless="seamless" scrolling="yes" allow="payment"></iframe>
+    <div class="donor-modal-iframe-wrap">
+      <iframe id="donor-modal-iframe" src="" name="donorbox" allowpaymentrequest="allowpaymentrequest" seamless="seamless" scrolling="yes" allow="payment"></iframe>
+    </div>
   </div>
 </div>
 
@@ -439,9 +441,8 @@ import CTAButton from '../components/CTAButton.astro';
     background: var(--color-white);
     border-radius: var(--radius-card);
     width: 100%;
-    max-width: 540px;
+    max-width: 400px;
     max-height: 90vh;
-    overflow: hidden;
     display: flex;
     flex-direction: column;
   }
@@ -465,10 +466,16 @@ import CTAButton from '../components/CTAButton.astro';
     justify-content: center;
   }
 
+  .donor-modal-iframe-wrap {
+    overflow: hidden;
+    flex: 1;
+    border-radius: var(--radius-card);
+  }
+
   .donor-modal-content iframe {
     width: 100%;
-    flex: 1;
     border: none;
-    min-height: 500px;
+    height: 680px;
+    margin-top: -72px;
   }
 </style>
