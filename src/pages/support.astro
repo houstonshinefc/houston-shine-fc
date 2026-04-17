@@ -87,7 +87,7 @@ import CTAButton from '../components/CTAButton.astro';
         <div class="support-card">
           <p class="support-label">For Individuals</p>
           <h2 class="support-heading">Make a Donation</h2>
-          <iframe src="https://donorbox.org/embed/houston-shine-fc?" name="donorbox" allowpaymentrequest="allowpaymentrequest" seamless="seamless" frameborder="0" scrolling="no" height="900px" width="100%" style="min-width: 250px; max-height:none!important" allow="payment"></iframe>
+          <iframe src="https://donorbox.org/embed/houston-shine-fc?" name="donorbox" allowpaymentrequest="allowpaymentrequest" seamless="seamless" frameborder="0" scrolling="no" height="900px" width="100%" style="min-width: 250px; max-height:none!important; display: block;" allow="payment"></iframe>
         </div>
 
         <!-- Right column — corporate + wishlist + 100% stacked -->
@@ -125,6 +125,20 @@ import CTAButton from '../components/CTAButton.astro';
       </div>
     </div>
   </section>
+
+<script is:inline>
+  window.addEventListener('message', function(e) {
+    if (e.origin !== 'https://donorbox.org') return;
+    const embed = document.querySelector('iframe[name="donorbox"]:not(#donor-modal-iframe)');
+    if (!embed) return;
+    const data = e.data;
+    // DonorBox sends height as a plain number string or as an object
+    const height = typeof data === 'object' ? (data.height || data.scrollHeight) : parseInt(data, 10);
+    if (height && height > 100) {
+      embed.style.height = height + 'px';
+    }
+  });
+</script>
 
 <!-- ============ DONOR MODAL ============ -->
 <div id="donor-modal" class="donor-modal" hidden>
