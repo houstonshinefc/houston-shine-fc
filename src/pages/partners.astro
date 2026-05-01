@@ -4,6 +4,19 @@ import SectionHeader from '../components/SectionHeader.astro';
 import PartnerLogo from '../components/PartnerLogo.astro';
 import CTAButton from '../components/CTAButton.astro';
 
+const affiliations = [
+  {
+    name: 'International Platform for Sport and Development',
+    href: 'https://www.sportanddev.org/network/organisation-directory/houston-shine-fc',
+    screenshot: '/images/affiliations/sportanddev-logo.svg',
+  },
+  {
+    name: 'World Football Giving Day',
+    href: 'https://www.worldfootballgivingday.org/',
+    screenshot: '/images/affiliations/wfgd-logo.png',
+  },
+];
+
 const partners = [
   {
     name: 'Dynamo Dash Charities',
@@ -93,6 +106,47 @@ const partners = [
               {partner.href && (
                 <a
                   href={partner.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style="font-size: 0.8125rem; font-weight: 700; color: var(--color-gold); text-decoration: none;"
+                >
+                  Visit site →
+                </a>
+              )}
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ AFFILIATIONS ============ -->
+  <section class="section" style="padding-top: 2rem;">
+    <div class="container">
+      <SectionHeader
+        label="Our Affiliations"
+        heading="Globally supported."
+      />
+
+      <div class="partners-detail-grid">
+        {affiliations.map(affiliation => (
+          <div class="partner-detail scroll-reveal-item">
+            {affiliation.screenshot && (
+              <div class="partner-logo-wrap">
+                <img
+                  src={affiliation.screenshot}
+                  alt={`${affiliation.name} logo`}
+                  class="partner-logo-img"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </div>
+            )}
+            <div class="partner-detail-body">
+              <h3 style="font-size: 1.0625rem; margin-bottom: 0.5rem;">{affiliation.name}</h3>
+              {affiliation.href && (
+                <a
+                  href={affiliation.href}
                   target="_blank"
                   rel="noopener noreferrer"
                   style="font-size: 0.8125rem; font-weight: 700; color: var(--color-gold); text-decoration: none;"
