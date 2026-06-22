@@ -109,6 +109,22 @@ const siteSchema = {
     }
   </script>
 
+  <!-- LGL iframe auto-resize via postMessage -->
+  <script>
+    window.addEventListener('message', (e) => {
+      if (!String(e.origin).includes('lglforms.com')) return;
+      const iframes = document.querySelectorAll<HTMLIFrameElement>('iframe[src*="lglforms.com"]');
+      if (!iframes.length) return;
+      let height: number | null = null;
+      if (typeof e.data === 'number') height = e.data;
+      else if (typeof e.data === 'string') { const n = parseInt(e.data, 10); if (!isNaN(n)) height = n; }
+      else if (e.data && typeof e.data === 'object') height = e.data.height ?? e.data.frameHeight ?? e.data.lglHeight ?? null;
+      if (height && height > 200) {
+        iframes.forEach(f => { f.style.height = height + 'px'; });
+      }
+    });
+  </script>
+
   <!-- Scroll Reveal (Intersection Observer) -->
   <script>
     const revealItems = document.querySelectorAll('.scroll-reveal-item');
