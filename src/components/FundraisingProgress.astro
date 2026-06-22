@@ -1,0 +1,158 @@
+---
+interface Props {
+  campaignId: string;
+  goal: number;
+}
+
+const { campaignId, goal } = Astro.props;
+---
+
+<div class="fp" id={`fp-${campaignId}`} data-campaign={campaignId} data-goal={goal}>
+  <div class="fp-stats">
+    <div class="fp-stat">
+      <span class="fp-value fp-raised-val">—</span>
+      <span class="fp-label">raised</span>
+    </div>
+    <div class="fp-stat fp-stat-mid">
+      <span class="fp-value fp-count-val">—</span>
+      <span class="fp-label">donations</span>
+    </div>
+    <div class="fp-stat fp-stat-right">
+      <span class="fp-value">${goal.toLocaleString()}</span>
+      <span class="fp-label">goal</span>
+    </div>
+  </div>
+  <div class="fp-track" role="progressbar" aria-valuemin="0" aria-valuemax={goal} aria-valuenow="0">
+    <div class="fp-fill"></div>
+  </div>
+</div>
+
+<script>
+  document.querySelectorAll<HTMLElement>(".fp[data-campaign]").forEach((wrap) => {
+    const campaignId = wrap.dataset.campaign!;
+    const goal = parseFloat(wrap.dataset.goal!);
+    const raisedEl  = wrap.querySelector<HTMLElement>(".fp-raised-val");
+    const countEl   = wrap.querySelector<HTMLElement>(".fp-count-val");
+    const track     = wrap.querySelector<HTMLElement>(".fp-track");
+    const fill      = wrap.querySelector<HTMLElement>(".fp-fill");
+
+    function fmt(n: number) {
+      return "$" + Math.round(n).toLocaleString("en-US");
+    }
+
+    async function load() {
+      try {
+        const res = await fetch(
+          `/.netlify/functions/fundraising-progress?campaign_id=${campaignId}`
+        );
+        if (!res.ok) throw new Error(`${res.status}`);
+        const data = await res.json();
+
+        raisedEl!.textContent = fmt(data.raised);
+        countEl!.textContent  = data.count.toLocaleString();
+        track!.setAttribute("aria-valuenow", String(data.raised));
+
+        const pct = Math.min((data.raised / goal) * 100, 100);
+        requestAnimationFrame(() => {
+          requestAnimationFrame(() => {
+            fill!.style.width = pct + "%";
+          });
+        });
+
+        wrap.classList.add("fp-loaded");
+      } catch {
+        raisedEl!.textContent = "—";
+        countEl!.textContent  = "—";
+        wrap.classList.add("fp-error");
+      }
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting) {
+          observer.disconnect();
+          load();
+        }
+      },
+      { threshold: 0.1 }
+    );
+
+    observer.observe(wrap);
+  });
+</script>
+
+<style>
+  .fp {
+    margin-bottom: 1.25rem;
+  }
+
+  .fp-stats {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 0.625rem;
+  }
+
+  .fp-stat {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+  }
+
+  .fp-stat-mid {
+    align-items: center;
+  }
+
+  .fp-stat-right {
+    align-items: flex-end;
+  }
+
+  .fp-value {
+    font-size: 1.375rem;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    color: var(--color-navy);
+    line-height: 1;
+  }
+
+  .fp-label {
+    font-size: 0.6875rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-text-secondary);
+  }
+
+  .fp-track {
+    height: 8px;
+    background: rgba(11, 37, 69, 0.08);
+    border-radius: 100px;
+    overflow: hidden;
+  }
+
+  .fp-fill {
+    height: 100%;
+    width: 0%;
+    background: var(--color-gold);
+    border-radius: 100px;
+    transition: width 900ms cubic-bezier(0.25, 1, 0.5, 1);
+  }
+
+  /* Shimmer while loading */
+  .fp:not(.fp-loaded):not(.fp-error) .fp-raised-val,
+  .fp:not(.fp-loaded):not(.fp-error) .fp-count-val {
+    color: transparent;
+    background: rgba(11, 37, 69, 0.06);
+    border-radius: 3px;
+    animation: fp-shimmer 1.4s ease infinite;
+  }
+
+  .fp:not(.fp-loaded):not(.fp-error) .fp-track {
+    animation: fp-shimmer 1.4s ease infinite;
+  }
+
+  @keyframes fp-shimmer {
+    0%, 100% { opacity: 1; }
+    50%       { opacity: 0.35; }
+  }
+</style>

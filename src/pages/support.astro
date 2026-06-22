@@ -2,6 +2,7 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import SectionHeader from '../components/SectionHeader.astro';
 import CTAButton from '../components/CTAButton.astro';
+import FundraisingProgress from '../components/FundraisingProgress.astro';
 
 // TODO: Replace # hrefs with actual donation/wishlist/impact report URLs
 ---
@@ -27,48 +28,60 @@ import CTAButton from '../components/CTAButton.astro';
     </div>
   </section>
 
+  <!-- ============ CAMPAIGN STRIP ============ -->
+  <section class="campaign-strip">
+    <div class="container campaign-strip-inner">
+      <div class="campaign-strip-text">
+        <p class="campaign-strip-label">Current Campaign</p>
+        <p class="campaign-strip-heading">Shine Goes to Washington</p>
+        <p class="campaign-strip-sub">On August 15, Houston Shine will participate in the first-ever tournament of Afghan women soccer players in America. Help support our journey to Washington, DC!</p>
+      </div>
+      <a href="/support/washington" class="btn btn-primary campaign-strip-btn">Learn More</a>
+    </div>
+  </section>
+
   <!-- ============ IMPACT GRID ============ -->
   <section class="section" style="padding-top: 3.5rem; padding-bottom: 2.75rem;">
     <div class="container">
 <div class="impact-grid">
 
         <div class="impact-item">
-          <a href="https://donorbox.org/houston-shine-fc?amount=25" class="impact-circle dbox-donation-button">
+          <a href="#donate" class="impact-circle donate-scroll">
             <p class="impact-amount">$25</p>
             <p class="impact-desc">Snacks & refreshments</p>
           </a>
         </div>
 
         <div class="impact-item">
-          <a href="https://donorbox.org/houston-shine-fc?amount=50" class="impact-circle dbox-donation-button">
+          <a href="#donate" class="impact-circle donate-scroll">
             <p class="impact-amount">$50</p>
             <p class="impact-desc">One pair of cleats</p>
           </a>
         </div>
 
         <div class="impact-item">
-          <a href="https://donorbox.org/houston-shine-fc?amount=100" class="impact-circle dbox-donation-button">
+          <a href="#donate" class="impact-circle donate-scroll">
             <p class="impact-amount">$100</p>
             <p class="impact-desc">One uniform kit</p>
           </a>
         </div>
 
         <div class="impact-item">
-          <a href="https://donorbox.org/houston-shine-fc?amount=250" class="impact-circle dbox-donation-button">
+          <a href="#donate" class="impact-circle donate-scroll">
             <p class="impact-amount">$250</p>
             <p class="impact-desc">Year of wifi <span style="white-space: nowrap;">(via Compudopt)</span></p>
           </a>
         </div>
 
         <div class="impact-item">
-          <a href="https://donorbox.org/houston-shine-fc?amount=600" class="impact-circle dbox-donation-button">
+          <a href="#donate" class="impact-circle donate-scroll">
             <p class="impact-amount">$600</p>
             <p class="impact-desc">One semester of English</p>
           </a>
         </div>
 
         <div class="impact-item">
-          <a href="https://donorbox.org/houston-shine-fc?amount=2500" class="impact-circle dbox-donation-button">
+          <a href="#donate" class="impact-circle donate-scroll">
             <p class="impact-amount">$2,500</p>
             <p class="impact-desc">League registration</p>
           </a>
@@ -84,10 +97,11 @@ import CTAButton from '../components/CTAButton.astro';
       <div class="support-layout">
 
         <!-- Individuals — left -->
-        <div class="support-card">
+        <div class="support-card" id="donate">
           <p class="support-label">For Individuals</p>
           <h2 class="support-heading">Make a Donation</h2>
-          <iframe src="https://donorbox.org/embed/houston-shine-fc?" name="donorbox" allowpaymentrequest="allowpaymentrequest" seamless="seamless" frameborder="0" scrolling="no" height="900px" width="100%" style="min-width: 250px; max-height:none!important; display: block;" allow="payment"></iframe>
+          <FundraisingProgress campaignId="847" goal={25000} />
+          <iframe onload="window.parent.scrollTo(0,0)" height="700" allowtransparency="true" allow="payment" frameborder="0" scrolling="no" style="width:100%;border:none;display:block;" src="https://secure.lglforms.com/form_engine/s/H5R8rDtHANEPbz99qEc8ww" title="Support Houston Shine FC Donation Form"><a href="https://secure.lglforms.com/form_engine/s/H5R8rDtHANEPbz99qEc8ww">Support the Houston Shine FC!</a></iframe>
         </div>
 
         <!-- Right column — corporate + wishlist + 100% stacked -->
@@ -126,63 +140,14 @@ import CTAButton from '../components/CTAButton.astro';
     </div>
   </section>
 
-<script is:inline>
-  window.addEventListener('message', function(e) {
-    if (e.origin !== 'https://donorbox.org') return;
-    const embed = document.querySelector('iframe[name="donorbox"]:not(#donor-modal-iframe)');
-    if (!embed) return;
-    const data = e.data;
-    // DonorBox sends height as a plain number string or as an object
-    const height = typeof data === 'object' ? (data.height || data.scrollHeight) : parseInt(data, 10);
-    if (height && height > 100) {
-      embed.style.height = height + 'px';
-    }
-  });
-</script>
-
-<!-- ============ DONOR MODAL ============ -->
-<div id="donor-modal" class="donor-modal" hidden>
-  <div class="donor-modal-backdrop" id="donor-modal-backdrop"></div>
-  <div class="donor-modal-content">
-    <button class="donor-modal-close" id="donor-modal-close" aria-label="Close">&#x2715;</button>
-    <div class="donor-modal-iframe-wrap">
-      <iframe id="donor-modal-iframe" src="" name="donorbox" allowpaymentrequest="allowpaymentrequest" seamless="seamless" scrolling="yes" allow="payment"></iframe>
-    </div>
-  </div>
-</div>
 
 <script>
-  (() => {
-    const modal = document.getElementById('donor-modal');
-    const iframe = document.getElementById('donor-modal-iframe');
-    const closeBtn = document.getElementById('donor-modal-close');
-    const backdrop = document.getElementById('donor-modal-backdrop');
-
-    function openModal(url) {
-      iframe.src = url;
-      modal.removeAttribute('hidden');
-      document.body.style.overflow = 'hidden';
-    }
-
-    function closeModal() {
-      modal.setAttribute('hidden', '');
-      iframe.src = '';
-      document.body.style.overflow = '';
-    }
-
-    document.querySelectorAll('.dbox-donation-button').forEach(link => {
-      link.addEventListener('click', e => {
-        e.preventDefault();
-        openModal(link.href);
-      });
+  document.querySelectorAll('.donate-scroll').forEach(link => {
+    link.addEventListener('click', e => {
+      e.preventDefault();
+      document.getElementById('donate')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
     });
-
-    closeBtn.addEventListener('click', closeModal);
-    backdrop.addEventListener('click', closeModal);
-    document.addEventListener('keydown', e => {
-      if (e.key === 'Escape') closeModal();
-    });
-  })();
+  });
 </script>
 
 <script>
@@ -223,6 +188,67 @@ import CTAButton from '../components/CTAButton.astro';
 </BaseLayout>
 
 <style>
+  /* ── Campaign Strip ── */
+  .campaign-strip {
+    background-color: var(--color-navy);
+    padding: 1.75rem 0;
+  }
+
+  .campaign-strip-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+    flex-wrap: wrap;
+  }
+
+  .campaign-strip-text {
+    flex: 1;
+    min-width: 200px;
+    max-width: 50%;
+  }
+
+  .campaign-strip-label {
+    font-size: 0.6875rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--color-gold);
+    margin: 0 0 0.25rem;
+  }
+
+  .campaign-strip-heading {
+    font-size: 1.125rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--color-white);
+    margin: 0 0 0.25rem;
+  }
+
+  .campaign-strip-sub {
+    font-size: 0.875rem;
+    color: rgba(255, 255, 255, 0.65);
+    margin: 0;
+    line-height: 1.5;
+  }
+
+  .campaign-strip-btn {
+    flex-shrink: 0;
+    white-space: nowrap;
+  }
+
+  @media (max-width: 600px) {
+    .campaign-strip-inner {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+    .campaign-strip-btn {
+      width: 100%;
+      text-align: center;
+    }
+  }
+
+  /* ── Support Hero ── */
   .support-hero {
     position: relative;
     background-color: var(--color-warm-white);
@@ -428,68 +454,4 @@ import CTAButton from '../components/CTAButton.astro';
     letter-spacing: -0.02em;
   }
 
-  /* ── Donor Modal ── */
-  .donor-modal {
-    position: fixed;
-    inset: 0;
-    z-index: 1000;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 1.5rem;
-  }
-
-  .donor-modal[hidden] {
-    display: none;
-  }
-
-  .donor-modal-backdrop {
-    position: absolute;
-    inset: 0;
-    background: rgba(11, 37, 69, 0.6);
-    cursor: pointer;
-  }
-
-  .donor-modal-content {
-    position: relative;
-    background: var(--color-white);
-    border-radius: var(--radius-card);
-    width: 100%;
-    max-width: 400px;
-    max-height: 90vh;
-    display: flex;
-    flex-direction: column;
-  }
-
-  .donor-modal-close {
-    position: absolute;
-    top: 0.75rem;
-    right: 0.75rem;
-    z-index: 1;
-    background: var(--color-warm-white);
-    border: none;
-    border-radius: 50%;
-    width: 2rem;
-    height: 2rem;
-    font-size: 1.25rem;
-    line-height: 1;
-    cursor: pointer;
-    color: var(--color-navy);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .donor-modal-iframe-wrap {
-    overflow: hidden;
-    flex: 1;
-    border-radius: var(--radius-card);
-  }
-
-  .donor-modal-content iframe {
-    width: 100%;
-    border: none;
-    height: 680px;
-    margin-top: -72px;
-  }
 </style>

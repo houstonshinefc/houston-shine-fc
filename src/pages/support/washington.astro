@@ -1,0 +1,392 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import FundraisingProgress from '../../components/FundraisingProgress.astro';
+---
+
+<BaseLayout
+  title="Houston Shine Goes to Washington"
+  description="On August 15, Houston Shine will participate in the first-ever tournament of Afghan women soccer players in America. Help support our journey to Washington, DC!"
+>
+
+  <!-- ============ CAMPAIGN HERO ============ -->
+  <section class="wash-hero">
+    <div class="wash-hero-bg" aria-hidden="true"></div>
+    <div class="container wash-hero-content" style="max-width: 820px;">
+      <p class="page-label">Current Campaign</p>
+      <h1>Houston Shine Goes<br />to Washington</h1>
+      <p class="wash-hero-sub">
+        On August 15, Houston Shine will participate in the first-ever tournament of Afghan women soccer players in America. Help support our journey to Washington, DC!
+      </p>
+      <div class="wash-goal-chip">
+        <span class="wash-goal-label">Fundraising Goal</span>
+        <span class="wash-goal-amount">$15,000</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ ABOUT THE TOURNAMENT ============ -->
+  <section class="section" style="padding-top: 4rem; padding-bottom: 1.5rem;">
+    <div class="container" style="max-width: 820px;">
+      <h2 class="wash-section-heading">About the Tournament</h2>
+      <p class="wash-body">
+        The tournament is hosted by <a href="https://www.thetawana.org/tawana-eastcoast-tournament" target="_blank" rel="noopener noreferrer" class="wash-link">The Tawana</a>, a non-profit organization for Afghan women's sports in the U.S. Small-sided games will be held at Montgomery College in Rockville, Maryland on August 15. The event coincides with the 5-year anniversary of the American withdrawal from Afghanistan.
+      </p>
+      <p class="wash-body">
+        Afghan women soccer players resettled across the East Coast, Midwest, and Texas are traveling to the DC area to play. Many have not seen each other since they were evacuated five years ago.
+      </p>
+      <p class="wash-body">
+        To be part of this special event, Houston Shine is raising money and recruiting host families to make our team's travel possible.
+      </p>
+    </div>
+  </section>
+
+  <!-- ============ TWO-COLUMN: DONATE + GET INVOLVED ============ -->
+  <section class="section wash-two-col-section">
+    <div class="container">
+      <div class="wash-two-col">
+
+        <!-- LEFT: Donation iframe -->
+        <div class="wash-card">
+          <p class="wash-label">Donate to the Campaign</p>
+          <h2 class="wash-heading">Sponsor a Player's Journey</h2>
+          <p class="wash-card-sub">
+            Our players are recently arrived refugees, many of them living on their own in their early 20s, while also supporting their families in Afghanistan. They are contributing to part of the costs of the trip, but they need support.
+          </p>
+          <FundraisingProgress campaignId="862" goal={15000} />
+          <iframe
+            onload="window.parent.scrollTo(0,0)"
+            height="700"
+            allowtransparency="true"
+            allow="payment"
+            frameborder="0"
+            scrolling="no"
+            style="width:100%;border:none;display:block;"
+            src="https://secure.lglforms.com/form_engine/s/YKPBEnyx-E4r-kCHnEgabw"
+            title="Sponsor a Player's Journey — Donation Form"
+          ><a href="https://secure.lglforms.com/form_engine/s/YKPBEnyx-E4r-kCHnEgabw">Sponsor a Player's Journey</a></iframe>
+        </div>
+
+        <!-- RIGHT: Host Family + Volunteer -->
+        <div class="wash-right">
+
+          <!-- Become a Host Family -->
+          <div class="wash-card">
+            <p class="wash-label">Get Involved</p>
+            <h2 class="wash-heading">Become a Host Family</h2>
+            <p class="wash-card-sub">
+              We're looking for a small group of host families in the Montgomery County area who can offer a safe and welcoming home to 2–4 players for three nights from August 14–16. Players range in age from 14–29 and will stay in pairs or small groups. Host families will help with local transportation to and from the Metro for a day of sightseeing on Friday and to the field on Saturday. Fill out this interest form and we'll be in touch.
+            </p>
+            <form
+              name="host-family-interest"
+              method="POST"
+              data-netlify="true"
+              class="wash-form"
+            >
+              <input type="hidden" name="form-name" value="host-family-interest" />
+              <div class="wash-field">
+                <label for="host-name">Your Name</label>
+                <input type="text" id="host-name" name="name" required placeholder="Full name" />
+              </div>
+              <div class="wash-field">
+                <label for="host-email">Email Address</label>
+                <input type="email" id="host-email" name="email" required placeholder="you@example.com" />
+              </div>
+              <div class="wash-field">
+                <label for="host-message">Tell us a bit about yourself</label>
+                <textarea id="host-message" name="message" rows="4" placeholder="Number of guests you can host, any questions, etc."></textarea>
+              </div>
+              <button type="submit" class="btn btn-primary wash-submit">Send Interest Form</button>
+            </form>
+          </div>
+
+          <!-- Be a part of our support team -->
+          <div class="wash-card">
+            <p class="wash-label">Volunteer</p>
+            <h2 class="wash-heading">Be Part of Our Support Team</h2>
+            <p class="wash-card-sub">
+              Can't host a player at your house? Sign up to help with transportation, volunteer at the tournament, or to join us on a field trip to DC on Friday. And follow us on Instagram!
+            </p>
+            <div class="wash-volunteer-btns">
+              <a href="mailto:houstonshinefc@pm.me?subject=Volunteer%20for%20Washington%20Trip" class="btn btn-primary">Get Involved</a>
+              <a href="https://www.instagram.com/houstonshinefc" target="_blank" rel="noopener noreferrer" class="btn btn-outline">Follow on Instagram</a>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FOOTER STRIP ============ -->
+  <section class="wash-footer-strip">
+    <div class="container wash-footer-inner">
+      <p class="wash-tax">
+        Houston Shine FC is a registered non-profit organization. Your contributions are tax-deductible.
+      </p>
+      <a href="/support" class="wash-back-link">← Back to all ways to support</a>
+    </div>
+  </section>
+
+</BaseLayout>
+
+<style>
+  /* ── Hero ── */
+  .wash-hero {
+    position: relative;
+    background-color: var(--color-navy);
+    padding: 5.5rem 0 4.5rem;
+    overflow: hidden;
+  }
+
+  .wash-hero-bg {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse at 80% 50%, rgba(212, 160, 60, 0.12) 0%, transparent 60%),
+      radial-gradient(ellipse at 10% 80%, rgba(27, 122, 84, 0.08) 0%, transparent 50%);
+    pointer-events: none;
+  }
+
+  .wash-hero-content {
+    position: relative;
+    z-index: 1;
+  }
+
+  .wash-hero .page-label {
+    color: var(--color-gold);
+    opacity: 0.9;
+  }
+
+  .wash-hero h1 {
+    color: var(--color-white);
+    font-size: clamp(2.5rem, 7vw, 4.25rem);
+    letter-spacing: -0.03em;
+    margin-bottom: 1.25rem;
+    line-height: 1.05;
+  }
+
+  .wash-hero-sub {
+    font-size: 1.125rem;
+    line-height: 1.7;
+    color: rgba(255, 255, 255, 0.75);
+    margin-bottom: 2rem;
+  }
+
+  .wash-goal-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.875rem;
+    background: rgba(212, 160, 60, 0.15);
+    border: 1px solid rgba(212, 160, 60, 0.4);
+    border-radius: 100px;
+    padding: 0.625rem 1.25rem;
+  }
+
+  .wash-goal-label {
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.6);
+  }
+
+  .wash-goal-amount {
+    font-size: 1.5rem;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    color: var(--color-gold);
+  }
+
+  /* ── About section ── */
+  .wash-section-heading {
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    margin-bottom: 1.25rem;
+  }
+
+  .wash-body {
+    font-size: 1.0625rem;
+    line-height: 1.75;
+    color: var(--color-text-secondary);
+    margin-bottom: 1.25rem;
+  }
+
+  .wash-link {
+    color: var(--color-navy);
+    font-weight: 600;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    transition: color var(--transition-base);
+  }
+
+  .wash-link:hover {
+    color: var(--color-gold);
+  }
+
+  /* ── Two-column layout ── */
+  .wash-two-col-section {
+    padding-top: 2.5rem;
+    padding-bottom: 4rem;
+  }
+
+  .wash-two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    align-items: stretch;
+  }
+
+  .wash-right {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .wash-right .wash-card:last-child {
+    flex: 1;
+  }
+
+  /* ── Cards ── */
+  .wash-card {
+    padding: 2rem;
+    border-radius: var(--radius-card);
+    border: 1px solid rgba(11, 37, 69, 0.08);
+    background: var(--color-warm-white);
+  }
+
+  .wash-label {
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--color-gold);
+    margin: 0 0 0.5rem;
+  }
+
+  .wash-heading {
+    font-size: 1.375rem;
+    letter-spacing: -0.02em;
+    margin: 0 0 0.75rem;
+  }
+
+  .wash-card-sub {
+    font-size: 0.9375rem;
+    line-height: 1.65;
+    color: var(--color-text-secondary);
+    margin: 0 0 1.25rem;
+  }
+
+  /* ── Host Family Form ── */
+  .wash-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .wash-field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.375rem;
+  }
+
+  .wash-field label {
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: var(--color-navy);
+    letter-spacing: 0.01em;
+  }
+
+  .wash-field input,
+  .wash-field textarea {
+    font-family: var(--font-sans);
+    font-size: 0.9375rem;
+    color: var(--color-text-primary);
+    background: var(--color-white);
+    border: 1.5px solid rgba(11, 37, 69, 0.18);
+    border-radius: 6px;
+    padding: 0.625rem 0.875rem;
+    width: 100%;
+    transition: border-color var(--transition-base);
+    outline: none;
+  }
+
+  .wash-field input::placeholder,
+  .wash-field textarea::placeholder {
+    color: rgba(90, 107, 122, 0.5);
+  }
+
+  .wash-field input:focus,
+  .wash-field textarea:focus {
+    border-color: var(--color-navy);
+  }
+
+  .wash-field textarea {
+    resize: vertical;
+    min-height: 100px;
+  }
+
+  .wash-submit {
+    align-self: flex-start;
+  }
+
+  /* ── Volunteer buttons ── */
+  .wash-volunteer-btns {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+  }
+
+  /* ── Footer strip ── */
+  .wash-footer-strip {
+    background: var(--color-warm-white);
+    border-top: 1px solid rgba(11, 37, 69, 0.08);
+    padding: 2.5rem 0;
+  }
+
+  .wash-footer-inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+    text-align: center;
+  }
+
+  .wash-tax {
+    font-size: 0.875rem;
+    color: var(--color-text-secondary);
+    margin: 0;
+  }
+
+  .wash-back-link {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--color-gold);
+    text-decoration: none;
+    letter-spacing: 0.01em;
+    transition: opacity var(--transition-base);
+  }
+
+  .wash-back-link:hover {
+    opacity: 0.75;
+  }
+
+  /* ── Page label ── */
+  .page-label {
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 0.875rem;
+  }
+
+  /* ── Responsive ── */
+  @media (max-width: 768px) {
+    .wash-two-col {
+      grid-template-columns: 1fr;
+    }
+
+    .wash-submit {
+      align-self: stretch;
+      text-align: center;
+    }
+  }
+</style>
