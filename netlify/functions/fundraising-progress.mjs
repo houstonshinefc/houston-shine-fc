@@ -51,10 +51,12 @@ async function fetchCampaignTotals(apiKey, campaignId) {
   let count = 0;
   let offset = 0;
   const limit = 100;
+  const targetId = parseInt(campaignId, 10);
 
+  // LGL's search endpoint does not filter by campaign_id server-side,
+  // so we fetch all gifts and filter by campaign_id in memory.
   while (true) {
     const params = new URLSearchParams({
-      campaign_id: campaignId,
       received_from: CAMPAIGN_START_DATE,
       limit: String(limit),
       offset: String(offset),
@@ -70,6 +72,7 @@ async function fetchCampaignTotals(apiKey, campaignId) {
     const gifts = data.items ?? data.gifts ?? [];
 
     for (const gift of gifts) {
+      if (gift.campaign_id !== targetId) continue;
       const amount = parseFloat(gift.received_amount ?? gift.amount ?? 0);
       if (!isNaN(amount)) raised += amount;
       count++;
