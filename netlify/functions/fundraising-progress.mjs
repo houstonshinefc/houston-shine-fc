@@ -73,8 +73,7 @@ async function fetchCampaignTotals(apiKey, campaignId) {
 
     for (const gift of gifts) {
       if (gift.campaign_id !== targetId) continue;
-      console.log("LGL gift:", JSON.stringify(gift));
-      if (gift.is_soft_credit) continue;
+      if (gift.gift_type_name === "Soft Credit") continue;
       const amount = parseFloat(gift.received_amount ?? gift.amount ?? 0);
       if (!isNaN(amount)) raised += amount;
       count++;
