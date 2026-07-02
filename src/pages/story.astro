@@ -80,6 +80,12 @@ const milestones = [
     description: 'Harris County Commissioners Court honors the Shine as part of Women\'s History Month: "through courage, perseverance, and unwavering resolve, Houston Shine FC demonstrates how women\'s athletics can inspire hope and create pathways for opportunity on and off the field."',
     media: '/images/timeline/13-commissioners-court.mp4',
   },
+  {
+    date: 'June 28, 2026',
+    title: 'The Second Half',
+    description: 'Houston Shine manager Sarah Labowitz speaks at the Unitarian Fellowship of Houston about the team\'s formation and journey.',
+    youtube: 'y9PhwpM6QhU',
+  },
 ];
 
 // Player data — add real player profiles as they become available
@@ -157,7 +163,17 @@ const players: Array<{ name: string; position?: string; bio?: string; photo?: st
         <div class="timeline-media-panel">
           <div class="timeline-media-stage">
             {milestones.map((m, i) => (
-              m.media ? (
+              m.youtube ? (
+                <iframe
+                  data-media-index={i}
+                  class="timeline-media-item timeline-youtube-item"
+                  src={`https://www.youtube.com/embed/${m.youtube}?rel=0`}
+                  title={m.title}
+                  frameborder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowfullscreen
+                />
+              ) : m.media ? (
                 m.media.endsWith('.mp4') ? (
                   <video
                     data-media-index={i}
@@ -345,6 +361,10 @@ const players: Array<{ name: string; position?: string; bio?: string; photo?: st
 
   .timeline-media-item.active {
     opacity: 1;
+  }
+
+  .timeline-youtube-item {
+    border: none;
   }
 
   .timeline-audio-toggle {

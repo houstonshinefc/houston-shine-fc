@@ -7,6 +7,7 @@ interface TimelineEvent {
   imageAlt?: string;
   media?: string;
   credit?: string;
+  youtube?: string;
 }
 
 interface Props {
@@ -32,6 +33,18 @@ const { events } = Astro.props;
           loading="lazy"
           decoding="async"
         />
+      )}
+      {event.youtube && (
+        <div class="timeline-inline-media">
+          <iframe
+            src={`https://www.youtube.com/embed/${event.youtube}?rel=0`}
+            title={event.title}
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen
+            style="width:100%;aspect-ratio:16/9;border-radius:8px;border:none;display:block;margin-top:1rem;"
+          />
+        </div>
       )}
       {event.media && (
         <div class="timeline-inline-media">
