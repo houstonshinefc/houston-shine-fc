@@ -164,15 +164,26 @@ const players: Array<{ name: string; position?: string; bio?: string; photo?: st
           <div class="timeline-media-stage">
             {milestones.map((m, i) => (
               m.youtube ? (
-                <iframe
+                <div
                   data-media-index={i}
-                  class="timeline-media-item timeline-youtube-item"
-                  src={`https://www.youtube.com/embed/${m.youtube}?rel=0&modestbranding=1&iv_load_policy=3`}
-                  title={m.title}
-                  frameborder="0"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                  allowfullscreen
-                />
+                  data-youtube={m.youtube}
+                  class="timeline-media-item timeline-youtube-facade"
+                  role="button"
+                  tabindex="0"
+                  aria-label={`Play: ${m.title}`}
+                >
+                  <img
+                    src={`https://img.youtube.com/vi/${m.youtube}/maxresdefault.jpg`}
+                    alt={m.title}
+                    class="timeline-youtube-thumb"
+                  />
+                  <div class="timeline-youtube-play" aria-hidden="true">
+                    <svg viewBox="0 0 68 48" width="60" height="42">
+                      <path d="M66.52 7.74c-.78-2.93-2.49-5.41-5.42-6.19C55.79.13 34 0 34 0S12.21.13 6.9 1.55c-2.93.78-4.63 3.26-5.42 6.19C.06 13.05 0 24 0 24s.06 10.95 1.48 16.26c.78 2.93 2.49 5.41 5.42 6.19C12.21 47.87 34 48 34 48s21.79-.13 27.1-1.55c2.93-.78 4.64-3.26 5.42-6.19C67.94 34.95 68 24 68 24s-.06-10.95-1.48-16.26z" fill="rgba(0,0,0,0.7)"/>
+                      <path d="M45 24 27 14v20" fill="#fff"/>
+                    </svg>
+                  </div>
+                </div>
               ) : m.media ? (
                 m.media.endsWith('.mp4') ? (
                   <video
@@ -363,8 +374,31 @@ const players: Array<{ name: string; position?: string; bio?: string; photo?: st
     opacity: 1;
   }
 
-  .timeline-youtube-item {
-    border: none;
+  .timeline-youtube-facade {
+    cursor: pointer;
+  }
+
+  .timeline-youtube-thumb {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .timeline-youtube-play {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 0.85;
+    transition: opacity 0.2s, transform 0.2s;
+    pointer-events: none;
+  }
+
+  .timeline-youtube-facade:hover .timeline-youtube-play {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1.1);
   }
 
   .timeline-audio-toggle {
@@ -558,4 +592,15 @@ const players: Array<{ name: string; position?: string; bio?: string; photo?: st
 
     timelineItems.forEach(item => observer.observe(item));
   }
+
+  // YouTube facade: swap in real iframe on click
+  document.querySelectorAll<HTMLElement>('.timeline-youtube-facade').forEach(facade => {
+    const activate = () => {
+      const videoId = facade.dataset.youtube!;
+      facade.innerHTML = `<iframe src="https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0&modestbranding=1&iv_load_policy=3" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="position:absolute;inset:0;width:100%;height:100%;border:none;"></iframe>`;
+      facade.classList.remove('timeline-youtube-facade');
+    };
+    facade.addEventListener('click', activate);
+    facade.addEventListener('keydown', (e: KeyboardEvent) => { if (e.key === 'Enter' || e.key === ' ') activate(); });
+  });
 </script>

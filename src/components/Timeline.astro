@@ -36,14 +36,25 @@ const { events } = Astro.props;
       )}
       {event.youtube && (
         <div class="timeline-inline-media">
-          <iframe
-            src={`https://www.youtube.com/embed/${event.youtube}?rel=0&modestbranding=1&iv_load_policy=3`}
-            title={event.title}
-            frameborder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowfullscreen
-            style="width:100%;aspect-ratio:16/9;border-radius:8px;border:none;display:block;margin-top:1rem;"
-          />
+          <div
+            class="timeline-youtube-facade-inline"
+            data-youtube={event.youtube}
+            role="button"
+            tabindex="0"
+            aria-label={`Play: ${event.title}`}
+          >
+            <img
+              src={`https://img.youtube.com/vi/${event.youtube}/maxresdefault.jpg`}
+              alt={event.title}
+              class="timeline-yt-thumb"
+            />
+            <div class="timeline-yt-play" aria-hidden="true">
+              <svg viewBox="0 0 68 48" width="56" height="40">
+                <path d="M66.52 7.74c-.78-2.93-2.49-5.41-5.42-6.19C55.79.13 34 0 34 0S12.21.13 6.9 1.55c-2.93.78-4.63 3.26-5.42 6.19C.06 13.05 0 24 0 24s.06 10.95 1.48 16.26c.78 2.93 2.49 5.41 5.42 6.19C12.21 47.87 34 48 34 48s21.79-.13 27.1-1.55c2.93-.78 4.64-3.26 5.42-6.19C67.94 34.95 68 24 68 24s-.06-10.95-1.48-16.26z" fill="rgba(0,0,0,0.7)"/>
+                <path d="M45 24 27 14v20" fill="#fff"/>
+              </svg>
+            </div>
+          </div>
         </div>
       )}
       {event.media && (
@@ -132,6 +143,39 @@ const { events } = Astro.props;
     margin: 0.375rem 0 0;
   }
 
+  .timeline-youtube-facade-inline {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    border-radius: 8px;
+    overflow: hidden;
+    cursor: pointer;
+    margin-top: 1rem;
+    background: #000;
+  }
+
+  .timeline-yt-thumb {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .timeline-yt-play {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 0.85;
+    pointer-events: none;
+    transition: opacity 0.2s, transform 0.2s;
+  }
+
+  .timeline-youtube-facade-inline:hover .timeline-yt-play {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1.1);
+  }
+
   @media (max-width: 900px) {
     .timeline-inline-media {
       display: block;
@@ -166,6 +210,21 @@ const { events } = Astro.props;
 </style>
 
 <script>
+  document.querySelectorAll<HTMLElement>('.timeline-youtube-facade-inline').forEach(facade => {
+    const activate = () => {
+      const videoId = facade.dataset.youtube!;
+      const iframe = document.createElement('iframe');
+      iframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0&modestbranding=1&iv_load_policy=3`;
+      iframe.setAttribute('frameborder', '0');
+      iframe.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture');
+      iframe.setAttribute('allowfullscreen', '');
+      iframe.style.cssText = 'width:100%;aspect-ratio:16/9;border-radius:8px;border:none;display:block;';
+      facade.replaceWith(iframe);
+    };
+    facade.addEventListener('click', activate);
+    facade.addEventListener('keydown', (e: KeyboardEvent) => { if (e.key === 'Enter' || e.key === ' ') activate(); });
+  });
+
   document.querySelectorAll<HTMLButtonElement>('.timeline-inline-audio-toggle').forEach(btn => {
     const wrap = btn.closest('.timeline-inline-video-wrap');
     const video = wrap?.querySelector<HTMLVideoElement>('video');
