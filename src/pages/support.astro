@@ -102,6 +102,7 @@ import FundraisingProgress from '../components/FundraisingProgress.astro';
           <h2 class="support-heading">Make a Donation</h2>
           <FundraisingProgress campaignId="847" goal={25000} />
           <iframe onload="window.parent.scrollTo(0,0)" height="1100" allowtransparency="true" allow="payment" frameborder="0" scrolling="no" style="width:100%;border:none;display:block;" src="https://secure.lglforms.com/form_engine/s/H5R8rDtHANEPbz99qEc8ww" title="Support Houston Shine FC Donation Form"><a href="https://secure.lglforms.com/form_engine/s/H5R8rDtHANEPbz99qEc8ww">Support the Houston Shine FC!</a></iframe>
+          <p class="lgl-note">After submitting your payment information, please do not close this window until you have received confirmation of payment. Thank you for your support!</p>
         </div>
 
         <!-- Right column — corporate + wishlist + 100% stacked -->
@@ -188,6 +189,16 @@ import FundraisingProgress from '../components/FundraisingProgress.astro';
 </BaseLayout>
 
 <style>
+  .lgl-note {
+    margin-top: 12px;
+    font-family: 'DM Sans', system-ui, sans-serif;
+    font-size: 0.8125rem;
+    font-style: italic;
+    color: #5A6B7A;
+    text-align: center;
+    line-height: 1.5;
+  }
+
   /* ── Campaign Strip ── */
   .campaign-strip {
     background-color: var(--color-navy);
