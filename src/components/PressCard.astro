@@ -9,9 +9,10 @@ interface Props {
   embedId?: string;
   image?: string;
   spotifyEmbedSrc?: string;
+  embedSrc?: string;
 }
 
-const { publication, headline, date, excerpt, url, logo, embedId, image, spotifyEmbedSrc } = Astro.props;
+const { publication, headline, date, excerpt, url, logo, embedId, image, spotifyEmbedSrc, embedSrc } = Astro.props;
 ---
 
 <article class="card press-card">
@@ -41,7 +42,19 @@ const { publication, headline, date, excerpt, url, logo, embedId, image, spotify
       ></iframe>
     </div>
   )}
-  {image && !embedId && !spotifyEmbedSrc && (
+  {embedSrc && (
+    <div class="press-embed-wrap">
+      <iframe
+        src={embedSrc}
+        title={headline}
+        frameborder="0"
+        allowfullscreen
+        loading="lazy"
+        class="press-embed"
+      ></iframe>
+    </div>
+  )}
+  {image && !embedId && !spotifyEmbedSrc && !embedSrc && (
     <div class="press-image-wrap">
       <img src={image} alt={headline} class="press-image" loading="lazy" decoding="async" />
     </div>
@@ -59,7 +72,7 @@ const { publication, headline, date, excerpt, url, logo, embedId, image, spotify
     </div>
     <h3 class="press-headline">{headline}</h3>
     {excerpt && <p class="press-excerpt">{excerpt}</p>}
-    <span class="press-read-more" aria-hidden="true">{embedId ? 'Watch on YouTube →' : spotifyEmbedSrc ? 'Listen on Spotify →' : 'Read story →'}</span>
+    <span class="press-read-more" aria-hidden="true">{embedId ? 'Watch on YouTube →' : spotifyEmbedSrc ? 'Listen on Spotify →' : embedSrc ? 'Watch →' : 'Read story →'}</span>
   </a>
 </article>
 

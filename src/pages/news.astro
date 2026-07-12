@@ -90,7 +90,7 @@ const pressItems = [
     date: '2026-07-10',
     excerpt: 'By Pooja Lodhia, video by Francisco Barragan.',
     url: 'https://abc13.com/post/silent-what-want-afghan-womens-soccer-team-makes-home-houston-fleeing-country/19481165/',
-    image: '/images/news/abc13-cover.jpeg',
+    embedSrc: 'https://abc13.com/video/embed?pid=19487699',
   },
 ];
 ---
@@ -130,6 +130,7 @@ const pressItems = [
             embedId={item.embedId}
             image={item.image}
             spotifyEmbedSrc={item.spotifyEmbedSrc}
+            embedSrc={item.embedSrc}
           />
         ))}
       </div>
