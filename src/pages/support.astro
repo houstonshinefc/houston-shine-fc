@@ -30,13 +30,27 @@ import FundraisingProgress from '../components/FundraisingProgress.astro';
 
   <!-- ============ CAMPAIGN STRIP ============ -->
   <section class="campaign-strip">
-    <div class="container campaign-strip-inner">
-      <div class="campaign-strip-text">
-        <p class="campaign-strip-label">Current Campaign</p>
-        <p class="campaign-strip-heading">Shine Goes to Washington</p>
-        <p class="campaign-strip-sub">On August 15, Houston Shine will participate in the first-ever tournament of Afghan women soccer players in America. Help support our journey to Washington, DC!</p>
+    <div class="container">
+
+      <div class="campaign-strip-row">
+        <div class="campaign-strip-text">
+          <p class="campaign-strip-label">Current Campaigns</p>
+          <p class="campaign-strip-heading">Shine Goes to Washington</p>
+          <p class="campaign-strip-sub">On August 15, Houston Shine will participate in the first-ever tournament of Afghan women soccer players in America. Help support our journey to Washington, DC!</p>
+        </div>
+        <a href="/support/shine-to-washington" class="btn btn-primary campaign-strip-btn">Learn More</a>
       </div>
-      <a href="/support/shine-to-washington" class="btn btn-primary campaign-strip-btn">Learn More</a>
+
+      <div class="campaign-strip-divider" aria-hidden="true"></div>
+
+      <div class="campaign-strip-row">
+        <div class="campaign-strip-text">
+          <p class="campaign-strip-heading">Fall Jersey Drive</p>
+          <p class="campaign-strip-sub">Help outfit our players for the fall season with new kits!</p>
+        </div>
+        <a href="#uniforms" class="btn btn-primary campaign-strip-btn uniforms-scroll">Donate below</a>
+      </div>
+
     </div>
   </section>
 
@@ -124,6 +138,48 @@ import FundraisingProgress from '../components/FundraisingProgress.astro';
             <CTAButton href="https://www.amazon.com/registries/gl/guest-view/10ZP8VM9R9DC2?ref_=cm_sw_r_mwn_ggr-subnav-share_VRDS4YB0YZEB2BHDJ35B&language=en-US&utm_source=ig&utm_medium=social&utm_content=link_in_bio&fbclid=PAZXh0bgNhZW0CMTEAc3J0YwZhcHBfaWQMMjU2MjgxMDQwNTU4AAGnf7XwyCxXlKXGFI6jOKuaUuXtUgv72HKFEqFjl-BdvZvskKaL1Scilbcf-Co_aem_8XMPAv229dqMimdpiqRYrA" variant="outline" external={true}>View the Wishlist</CTAButton>
           </div>
 
+          <!-- Uniforms campaign card (temporary) -->
+          <div class="support-card uniforms-card" id="uniforms">
+            <div class="uniforms-card-body">
+              <div class="uniforms-card-left">
+                <p class="support-label uniforms-label">Fall Jersey Drive</p>
+                <h2 class="support-heading uniforms-heading">Dress the Team</h2>
+                <p class="uniforms-desc">Help outfit a player for the fall season. Each kit is <strong>$34.99</strong>.</p>
+                <button class="btn btn-gold uniforms-open-btn" data-dialog="uniforms-modal">Donate a Jersey</button>
+              </div>
+              <div class="uniforms-card-right">
+                <img
+                  src="/images/general/uniform-temp_01.png"
+                  alt="Houston Shine FC player in uniform"
+                  class="uniforms-jersey-img"
+                />
+              </div>
+            </div>
+          </div>
+
+          <!-- Uniforms donation modal -->
+          <dialog id="uniforms-modal" class="uniforms-modal">
+            <div class="uniforms-modal-inner">
+              <button class="uniforms-modal-close" aria-label="Close donation form">&#x2715;</button>
+              <p class="wash-label" style="margin-bottom: 0.25rem;">Fall Jersey Drive</p>
+              <h2 class="wash-heading" style="margin-bottom: 0.5rem;">Donate a Jersey</h2>
+              <p class="uniforms-modal-sub">Each kit is $34.99.</p>
+              <iframe
+                onload="window.parent.scrollTo(0,0)"
+                height="1100"
+                allowtransparency="true"
+                allow="payment"
+                frameborder="0"
+                scrolling="no"
+                style="width:100%;border:none;display:block;"
+                src="about:blank"
+                data-src="https://secure.lglforms.com/form_engine/s/vzExrXR0O7fE4oTTxzB-Gg"
+                title="Fall Jersey Drive Donation Form"
+              ><a href="TODO_LGL_FORM_URL">Donate a Jersey</a></iframe>
+              <p class="lgl-note">After submitting your payment information, please do not close this window until you receive confirmation. Thank you for your support!</p>
+            </div>
+          </dialog>
+
           <!-- 100% card -->
           <div class="support-card hundred-card">
             <div class="hundred-band">
@@ -147,6 +203,44 @@ import FundraisingProgress from '../components/FundraisingProgress.astro';
     link.addEventListener('click', e => {
       e.preventDefault();
       document.getElementById('donate')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  });
+
+  document.querySelectorAll('.uniforms-scroll').forEach(link => {
+    link.addEventListener('click', e => {
+      e.preventDefault();
+      document.getElementById('uniforms')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  });
+
+  // Modal open/close
+  document.querySelectorAll('[data-dialog]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const modal = document.getElementById(btn.dataset.dialog);
+      if (!modal) return;
+      // Lazy-load the iframe src on first open
+      const iframe = modal.querySelector('iframe[data-src]');
+      if (iframe && iframe.getAttribute('src') === 'about:blank') {
+        iframe.src = iframe.dataset.src;
+      }
+      modal.showModal();
+      document.body.style.overflow = 'hidden';
+    });
+  });
+
+  document.querySelectorAll('.uniforms-modal-close').forEach(btn => {
+    btn.addEventListener('click', () => {
+      btn.closest('dialog')?.close();
+      document.body.style.overflow = '';
+    });
+  });
+
+  document.querySelectorAll('.uniforms-modal').forEach(modal => {
+    modal.addEventListener('click', e => {
+      if (e.target === modal) {
+        modal.close();
+        document.body.style.overflow = '';
+      }
     });
   });
 </script>
@@ -191,6 +285,7 @@ import FundraisingProgress from '../components/FundraisingProgress.astro';
 <style>
   .lgl-note {
     margin-top: 12px;
+    margin-bottom: -2rem;
     font-family: 'DM Sans', system-ui, sans-serif;
     font-size: 0.8125rem;
     font-style: italic;
@@ -205,12 +300,18 @@ import FundraisingProgress from '../components/FundraisingProgress.astro';
     padding: 1.75rem 0;
   }
 
-  .campaign-strip-inner {
+  .campaign-strip-row {
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 2rem;
     flex-wrap: wrap;
+  }
+
+  .campaign-strip-divider {
+    height: 1px;
+    background: rgba(255, 255, 255, 0.12);
+    margin: 1.25rem 0;
   }
 
   .campaign-strip-text {
@@ -249,7 +350,7 @@ import FundraisingProgress from '../components/FundraisingProgress.astro';
   }
 
   @media (max-width: 600px) {
-    .campaign-strip-inner {
+    .campaign-strip-row {
       flex-direction: column;
       align-items: flex-start;
     }
@@ -260,6 +361,165 @@ import FundraisingProgress from '../components/FundraisingProgress.astro';
       width: 100%;
       text-align: center;
     }
+  }
+
+  /* ── Uniforms Campaign Card ── */
+  .support-card.uniforms-card {
+    background-color: var(--color-navy);
+    border-color: transparent;
+    scroll-margin-top: 80px;
+    padding: 1rem 1rem 1rem 2rem;
+  }
+
+  .uniforms-card-body {
+    display: flex;
+    gap: 1.5rem;
+    align-items: center;
+  }
+
+  .uniforms-card-left {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .uniforms-card-right {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .uniforms-label {
+    color: var(--color-gold);
+  }
+
+  .uniforms-jersey-img {
+    display: block;
+    max-height: 220px;
+    width: auto;
+    border-radius: 6px;
+    transform-origin: center bottom;
+    filter:
+      drop-shadow(2px 0 0 white)
+      drop-shadow(-2px 0 0 white)
+      drop-shadow(0 2px 0 white)
+      drop-shadow(0 -2px 0 white)
+      drop-shadow(1px 1px 0 white)
+      drop-shadow(-1px -1px 0 white)
+      drop-shadow(-1px 1px 0 white)
+      drop-shadow(1px -1px 0 white);
+  }
+
+  @keyframes jersey-shake {
+    0%, 100% { transform: rotate(0deg) scale(1.03); }
+    15%       { transform: rotate(-4deg) scale(1.03); }
+    30%       { transform: rotate(4deg) scale(1.03); }
+    45%       { transform: rotate(-2.5deg) scale(1.03); }
+    60%       { transform: rotate(2.5deg) scale(1.03); }
+    75%       { transform: rotate(-1deg) scale(1.03); }
+    90%       { transform: rotate(1deg) scale(1.03); }
+  }
+
+  .uniforms-jersey-img:hover {
+    animation: jersey-shake 0.65s ease;
+  }
+
+  .uniforms-heading {
+    color: var(--color-white);
+  }
+
+  .uniforms-desc {
+    font-size: 0.9375rem;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.7);
+    margin-bottom: 1.25rem;
+  }
+
+  .uniforms-desc strong {
+    color: var(--color-white);
+  }
+
+  @media (max-width: 480px) {
+    .uniforms-card-body {
+      flex-direction: column-reverse;
+    }
+    .uniforms-jersey-img {
+      height: 180px;
+    }
+  }
+
+  .btn-gold {
+    display: inline-block;
+    background: var(--color-gold);
+    color: var(--color-navy);
+    font-family: var(--font-sans);
+    font-size: 0.9375rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    padding: 0.75rem 1.5rem;
+    border-radius: var(--radius-btn, 6px);
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    transition: opacity 0.2s ease;
+    width: 100%;
+    text-align: center;
+  }
+
+  .btn-gold:hover {
+    opacity: 0.88;
+  }
+
+  /* ── Uniforms Modal ── */
+  .uniforms-modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    margin: 0;
+    width: min(640px, 95vw);
+    max-height: 92vh;
+    padding: 0;
+    border: none;
+    border-radius: var(--radius-card);
+    overflow: hidden;
+    box-shadow: 0 24px 64px rgba(11, 37, 69, 0.28);
+  }
+
+  .uniforms-modal::backdrop {
+    background: rgba(11, 37, 69, 0.55);
+    backdrop-filter: blur(3px);
+  }
+
+  .uniforms-modal-inner {
+    padding: 2rem;
+    overflow-y: auto;
+    max-height: 92vh;
+  }
+
+  .uniforms-modal-close {
+    display: block;
+    margin-left: auto;
+    margin-bottom: 1.25rem;
+    background: none;
+    border: none;
+    font-size: 1.125rem;
+    color: var(--color-text-secondary);
+    cursor: pointer;
+    padding: 0.25rem 0.5rem;
+    line-height: 1;
+    transition: color 0.2s ease;
+  }
+
+  .uniforms-modal-close:hover {
+    color: var(--color-navy);
+  }
+
+  .uniforms-modal-sub {
+    font-size: 0.9375rem;
+    line-height: 1.6;
+    color: var(--color-text-secondary);
+    margin-bottom: 1.25rem;
   }
 
   /* ── Support Hero ── */
