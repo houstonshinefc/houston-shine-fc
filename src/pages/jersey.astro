@@ -1,0 +1,248 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="Donate a Jersey — Fall Jersey Drive"
+  description="Help outfit a Houston Shine FC player for the fall season. Each jersey is $49.99 — donate below."
+>
+
+  <!-- ============ CAMPAIGN HERO ============ -->
+  <section class="jersey-hero">
+    <div class="jersey-hero-bg" aria-hidden="true"></div>
+    <div class="container jersey-hero-content">
+      <div class="jersey-hero-text">
+        <p class="page-label">Fall Jersey Drive</p>
+        <h1>Dress the Team</h1>
+        <p class="jersey-hero-sub">
+          Help outfit a Houston Shine FC player for the fall season. Each jersey is <strong>$49.99</strong>.
+        </p>
+      </div>
+      <div class="jersey-hero-media">
+        <img
+          src="/images/general/uniform-temp_01.png"
+          alt="Houston Shine FC player in uniform"
+          class="jersey-hero-img"
+        />
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ DONATION FORM ============ -->
+  <section class="section jersey-donate-section">
+    <div class="container" style="max-width: 640px;">
+      <div class="jersey-card">
+        <p class="jersey-label">Donate a Jersey</p>
+        <h2 class="jersey-heading">Each jersey is $49.99</h2>
+        <p class="jersey-card-sub">
+          Fill out the form below to donate. Thank you for supporting the team!
+        </p>
+        <iframe
+          onload="window.parent.scrollTo(0,0)"
+          height="1100"
+          allowtransparency="true"
+          allow="payment"
+          frameborder="0"
+          scrolling="no"
+          style="width:100%;border:none;display:block;"
+          src="https://secure.lglforms.com/form_engine/s/vzExrXR0O7fE4oTTxzB-Gg"
+          title="Fall Jersey Drive Donation Form"
+        ><a href="https://secure.lglforms.com/form_engine/s/vzExrXR0O7fE4oTTxzB-Gg">Donate a Jersey</a></iframe>
+        <p class="lgl-note">After submitting your payment information, please do not close this window until you receive confirmation. Thank you for your support!</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FOOTER STRIP ============ -->
+  <section class="jersey-footer-strip">
+    <div class="container jersey-footer-inner">
+      <p class="jersey-tax">
+        Houston Shine FC is a registered non-profit organization. Your contributions are tax-deductible.
+      </p>
+      <a href="/support" class="jersey-back-link">← Back to all ways to support</a>
+    </div>
+  </section>
+
+</BaseLayout>
+
+<style>
+  .lgl-note {
+    margin-top: 12px;
+    font-family: 'DM Sans', system-ui, sans-serif;
+    font-size: 0.8125rem;
+    font-style: italic;
+    color: #5A6B7A;
+    text-align: center;
+    line-height: 1.5;
+  }
+
+  /* ── Hero ── */
+  .jersey-hero {
+    position: relative;
+    background-color: var(--color-navy);
+    padding: 4.5rem 0;
+    overflow: hidden;
+  }
+
+  .jersey-hero-bg {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse at 80% 50%, rgba(212, 160, 60, 0.12) 0%, transparent 60%),
+      radial-gradient(ellipse at 10% 80%, rgba(27, 122, 84, 0.08) 0%, transparent 50%);
+    pointer-events: none;
+  }
+
+  .jersey-hero-content {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+  }
+
+  .jersey-hero-text {
+    max-width: 480px;
+  }
+
+  .jersey-hero .page-label {
+    color: var(--color-gold);
+    opacity: 0.9;
+  }
+
+  .jersey-hero h1 {
+    color: var(--color-white);
+    font-size: clamp(2.25rem, 6vw, 3.5rem);
+    letter-spacing: -0.03em;
+    margin-bottom: 1.25rem;
+    line-height: 1.05;
+  }
+
+  .jersey-hero-sub {
+    font-size: 1.125rem;
+    line-height: 1.7;
+    color: rgba(255, 255, 255, 0.75);
+  }
+
+  .jersey-hero-sub strong {
+    color: var(--color-gold);
+  }
+
+  .jersey-hero-media {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .jersey-hero-img {
+    display: block;
+    max-height: 260px;
+    width: auto;
+    border-radius: 6px;
+    filter:
+      drop-shadow(2px 0 0 white)
+      drop-shadow(-2px 0 0 white)
+      drop-shadow(0 2px 0 white)
+      drop-shadow(0 -2px 0 white)
+      drop-shadow(1px 1px 0 white)
+      drop-shadow(-1px -1px 0 white)
+      drop-shadow(-1px 1px 0 white)
+      drop-shadow(1px -1px 0 white);
+  }
+
+  /* ── Donation card ── */
+  .jersey-donate-section {
+    padding-top: 3.5rem;
+    padding-bottom: 4rem;
+  }
+
+  .jersey-card {
+    padding: 2rem;
+    border-radius: var(--radius-card);
+    border: 1px solid rgba(11, 37, 69, 0.08);
+    background: var(--color-warm-white);
+  }
+
+  .jersey-label {
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--color-gold);
+    margin: 0 0 0.5rem;
+  }
+
+  .jersey-heading {
+    font-size: 1.375rem;
+    letter-spacing: -0.02em;
+    margin: 0 0 0.75rem;
+  }
+
+  .jersey-card-sub {
+    font-size: 0.9375rem;
+    line-height: 1.65;
+    color: var(--color-text-secondary);
+    margin: 0 0 1.25rem;
+  }
+
+  /* ── Footer strip ── */
+  .jersey-footer-strip {
+    background: var(--color-warm-white);
+    border-top: 1px solid rgba(11, 37, 69, 0.08);
+    padding: 2.5rem 0;
+  }
+
+  .jersey-footer-inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+    text-align: center;
+  }
+
+  .jersey-tax {
+    font-size: 0.875rem;
+    color: var(--color-text-secondary);
+    margin: 0;
+  }
+
+  .jersey-back-link {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--color-gold);
+    text-decoration: none;
+    letter-spacing: 0.01em;
+    transition: opacity var(--transition-base);
+  }
+
+  .jersey-back-link:hover {
+    opacity: 0.75;
+  }
+
+  /* ── Page label ── */
+  .page-label {
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 0.875rem;
+  }
+
+  /* ── Responsive ── */
+  @media (max-width: 768px) {
+    .jersey-hero-content {
+      flex-direction: column;
+      text-align: center;
+    }
+
+    .jersey-hero-text {
+      max-width: 100%;
+    }
+
+    .jersey-card {
+      padding: 1.5rem 0.75rem;
+    }
+  }
+</style>
