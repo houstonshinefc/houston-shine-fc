@@ -566,6 +566,11 @@ const players: Array<{ name: string; position?: string; bio?: string; photo?: st
       creditItems.forEach(el => {
         el.classList.toggle('active', parseInt(el.dataset.creditIndex!) === activeMediaIndex);
       });
+
+      // Highlight the timeline dot whose media is currently displayed
+      timelineItems.forEach(el => {
+        el.classList.toggle('dot-active', parseInt(el.dataset.timelineIndex!) === activeMediaIndex);
+      });
     }
 
     // Audio toggle click

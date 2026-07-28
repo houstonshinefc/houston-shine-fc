@@ -354,6 +354,12 @@ p { margin-top: 0; }
   background: var(--color-gold);
   border: 2px solid var(--color-white);
   box-shadow: 0 0 0 2px var(--color-gold);
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.timeline-item.dot-active::before {
+  background: var(--color-navy);
+  box-shadow: 0 0 0 2px var(--color-navy);
 }
 
 .timeline-date {

@@ -10,10 +10,10 @@ interface Props {
   image?: string;
   spotifyEmbedSrc?: string;
   embedSrc?: string;
-  embedExtraHeight?: number;
+  embedCropTop?: number;
 }
 
-const { publication, headline, date, excerpt, url, logo, embedId, image, spotifyEmbedSrc, embedSrc, embedExtraHeight } = Astro.props;
+const { publication, headline, date, excerpt, url, logo, embedId, image, spotifyEmbedSrc, embedSrc, embedCropTop } = Astro.props;
 ---
 
 <article class="card press-card">
@@ -44,10 +44,7 @@ const { publication, headline, date, excerpt, url, logo, embedId, image, spotify
     </div>
   )}
   {embedSrc && (
-    <div
-      class="press-embed-wrap"
-      style={embedExtraHeight ? `aspect-ratio: unset; padding-top: calc(56.25% + ${embedExtraHeight}px);` : undefined}
-    >
+    <div class="press-embed-wrap">
       <iframe
         src={embedSrc}
         title={headline}
@@ -56,6 +53,7 @@ const { publication, headline, date, excerpt, url, logo, embedId, image, spotify
         allowfullscreen
         loading="lazy"
         class="press-embed"
+        style={embedCropTop ? `top: -${embedCropTop}px; height: calc(100% + ${embedCropTop}px);` : undefined}
       ></iframe>
     </div>
   )}
