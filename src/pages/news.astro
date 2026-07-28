@@ -92,6 +92,15 @@ const pressItems = [
     url: 'https://abc13.com/post/silent-what-want-afghan-womens-soccer-team-makes-home-houston-fleeing-country/19481165/',
     embedSrc: 'https://abc13.com/video/embed?pid=19487699',
   },
+  {
+    publication: 'PBS',
+    headline: 'Watch the preview for "The Away Team," Houston Shine\'s episode of Texas Monthly Presents: The Story',
+    date: '2026-08-23',
+    excerpt: 'The full documentary airs Sunday, August 23 at 6:30 PM on PBS.',
+    url: 'https://www.pbs.org/video/the-away-team-preview-d5wonn/',
+    embedSrc: 'https://player.pbs.org/viralplayer/3112377882/',
+    embedExtraHeight: 43,
+  },
 ];
 ---
 
@@ -131,6 +140,7 @@ const pressItems = [
             image={item.image}
             spotifyEmbedSrc={item.spotifyEmbedSrc}
             embedSrc={item.embedSrc}
+            embedExtraHeight={item.embedExtraHeight}
           />
         ))}
       </div>
