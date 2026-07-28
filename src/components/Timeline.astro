@@ -8,6 +8,8 @@ interface TimelineEvent {
   media?: string;
   credit?: string;
   youtube?: string;
+  link?: string;
+  linkLabel?: string;
 }
 
 interface Props {
@@ -25,6 +27,9 @@ const { events } = Astro.props;
       <p style="font-size: 0.9375rem; color: var(--color-text-secondary); line-height: 1.65; margin: 0;">
         {event.description}
       </p>
+      {event.link && (
+        <a href={event.link} class="timeline-link">{event.linkLabel ?? 'Learn more →'}</a>
+      )}
       {event.image && (
         <img
           src={event.image}
@@ -97,6 +102,20 @@ const { events } = Astro.props;
 </div>
 
 <style>
+  .timeline-link {
+    display: inline-block;
+    margin-top: 0.625rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--color-gold);
+    text-decoration: none;
+    transition: opacity var(--transition-base);
+  }
+
+  .timeline-link:hover {
+    opacity: 0.75;
+  }
+
   .timeline-inline-media {
     display: none;
     margin-top: 1rem;
