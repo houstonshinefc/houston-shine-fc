@@ -319,6 +319,16 @@ p { margin-top: 0; }
   filter: grayscale(100%) brightness(0);
 }
 
+@media (max-width: 768px) {
+  .press-strip {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    justify-items: center;
+    align-items: center;
+    gap: 1.75rem 1.5rem;
+  }
+}
+
 /* ============================================================
    Timeline
    ============================================================ */
