@@ -35,16 +35,6 @@ import FundraisingProgress from '../components/FundraisingProgress.astro';
       <div class="campaign-strip-row">
         <div class="campaign-strip-text">
           <p class="campaign-strip-label">Current Campaigns</p>
-          <p class="campaign-strip-heading">Fall Jersey Drive</p>
-          <p class="campaign-strip-sub">Help outfit our players for the fall season with new jerseys!</p>
-        </div>
-        <a href="#uniforms" class="btn btn-primary campaign-strip-btn uniforms-scroll">Donate below</a>
-      </div>
-
-      <div class="campaign-strip-divider" aria-hidden="true"></div>
-
-      <div class="campaign-strip-row">
-        <div class="campaign-strip-text">
           <p class="campaign-strip-heading">Fall Scholarships</p>
           <p class="campaign-strip-sub">Help fund scholarships to Houston City College's intensive English program for the upcoming fall semester.</p>
         </div>
@@ -138,7 +128,11 @@ import FundraisingProgress from '../components/FundraisingProgress.astro';
             <CTAButton href="https://www.amazon.com/registries/gl/guest-view/10ZP8VM9R9DC2?ref_=cm_sw_r_mwn_ggr-subnav-share_VRDS4YB0YZEB2BHDJ35B&language=en-US&utm_source=ig&utm_medium=social&utm_content=link_in_bio&fbclid=PAZXh0bgNhZW0CMTEAc3J0YwZhcHBfaWQMMjU2MjgxMDQwNTU4AAGnf7XwyCxXlKXGFI6jOKuaUuXtUgv72HKFEqFjl-BdvZvskKaL1Scilbcf-Co_aem_8XMPAv229dqMimdpiqRYrA" variant="outline" external={true}>View the Wishlist</CTAButton>
           </div>
 
-          <!-- Uniforms campaign card (temporary) -->
+          <!-- Uniforms campaign card + modal — archived Aug 2026 (Fall Jersey Drive wound down).
+               Reuse for the spring jersey campaign: swap uniforms-jersey-img src for a new
+               image, update copy/price as needed, then uncomment. CSS/JS below are untouched
+               and will work as-is once this block is restored. -->
+          <!--
           <div class="support-card uniforms-card" id="uniforms">
             <div class="uniforms-card-body">
               <div class="uniforms-card-left">
@@ -157,7 +151,6 @@ import FundraisingProgress from '../components/FundraisingProgress.astro';
             </div>
           </div>
 
-          <!-- Uniforms donation modal -->
           <dialog id="uniforms-modal" class="uniforms-modal">
             <div class="uniforms-modal-inner">
               <button class="uniforms-modal-close" aria-label="Close donation form">&#x2715;</button>
@@ -179,6 +172,7 @@ import FundraisingProgress from '../components/FundraisingProgress.astro';
               <p class="lgl-note">After submitting your payment information, please do not close this window until you receive confirmation. Thank you for your support!</p>
             </div>
           </dialog>
+          -->
 
           <!-- 100% card -->
           <div class="support-card hundred-card">
